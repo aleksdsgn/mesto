@@ -6,16 +6,15 @@ function closePopupOnQ(e) {
   if (e.code === 'KeyQ') {
     closePopup();
   }
-  console.log(1);
 }
 
 function openPopup() {
-  popup.classList.remove('popup_hidden');
+  popup.classList.add('popup_opened');
   document.addEventListener('keypress', closePopupOnQ);
 }
 
 function closePopup() {
-  popup.classList.add('popup_hidden');
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keypress', closePopupOnQ);
 }
 
@@ -32,7 +31,3 @@ popup.addEventListener('click', function(e) {
     closePopup();
   }
 });
-
-document.addEventListener('keypress', function(e) {
-
-})
