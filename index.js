@@ -1,4 +1,4 @@
-const profileEditButton = document.querySelector('.profile__button_type_edit'); // переименовать имя класса в html
+const profileEditButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const popupCloseButton = document.querySelector('.popup__close-button');
 
