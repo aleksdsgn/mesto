@@ -5,6 +5,7 @@
   width: 22px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .elements__button-like:hover {
