@@ -10,7 +10,3 @@
 .elements__button-like:hover {
   opacity: 0.6;
 }
-
-.elements__button-like:active {
-  background-image: url(../../../images/like-fill.svg);
-}
