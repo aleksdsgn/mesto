@@ -1,4 +1,5 @@
-.popup__name-input {
+.popup__input_type_job {
+  margin-top: 19px;
   padding: 10px 0;
   width: 100%;
   font-style: normal;
@@ -9,10 +10,10 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup__name-input:focus {
+.popup__input_type_job:focus {
   outline-color: rgba(0, 0, 0, 0.2);
 }
 
-.popup__name-input::placeholder {
+.popup__input_type_job::placeholder {
   color: rgba(0, 0, 0, 0.5);
 }
