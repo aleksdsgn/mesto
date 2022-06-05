@@ -1,4 +1,4 @@
-.elements__button-like {
+.card__button-like {
   background-image: url(../../../images/like.svg);
   background-repeat: no-repeat;
   height: 19px;
@@ -8,6 +8,6 @@
   cursor: pointer;
 }
 
-.elements__button-like:hover {
+.card__button-like:hover {
   opacity: 0.6;
 }
