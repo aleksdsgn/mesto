@@ -32,60 +32,7 @@
     <section class="places">
 
       <ul class="places__container">
-        <li class="places__element">
-          <article class="card">
-            <img src="./images/card__cadini-misurina.jpg" alt="Кадини Мизурина" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Кадини Мизурина</h2>
-              <button class="card__button-like card__button-like_active" type="button"></button>
-            </div>
-          </article>
-        </li>
-        <li class="places__element">
-          <article class="card">
-            <img src="./images/card__diyaluma-falls-sri-lanka.jpg" alt="водопад Диялума, Шри-Ланка" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Водопад Диялума, Шри-Ланка</h2>
-              <button class="card__button-like card__button-like_active" type="button"></button>
-            </div>
-          </article>
-        </li>
-        <li class="places__element">
-          <article class="card">
-            <img src="./images/card__gosauseen-austria.jpg" alt="озеро Гозаузеен, Австрия" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Озеро Гозаузеен, Австрия</h2>
-              <button class="card__button-like card__button-like_active" type="button"></button>
-            </div>
-          </article>
-        </li>
-        <li class="places__element">
-          <article class="card">
-            <img src="./images/card__kreta-griechenland.jpg" alt="остров Крит, Греция" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">о. Крит, Греция</h2>
-              <button class="card__button-like card__button-like_active" type="button"></button>
-            </div>
-          </article>
-        </li>
-        <li class="places__element">
-          <article class="card">
-            <img src="./images/card__ouargla-algeria.jpg" alt="город Уаргла, Алжир" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">г. Уаргла, Алжир</h2>
-              <button class="card__button-like card__button-like_active" type="button"></button>
-            </div>
-          </article>
-        </li>
-        <li class="places__element">
-          <article class="card">
-            <img src="./images/card__siwa-egypt.jpg" alt="оазис Сива, Египет" class="card__image">
-            <div class="card__info">
-              <h2 class="card__title">Сива, Египет</h2>
-              <button class="card__button-like card__button-like_active" type="button"></button>
-            </div>
-          </article>
-        </li>
+        <!-- контейнер для шаблонов карточек -->
       </ul>
 
     </section>
@@ -105,6 +52,18 @@
       <button class="popup__submit-button" type="submit">Сохранить</button>
     </form>
   </section>
+
+  <template id="card-template">
+    <li class="places__element">
+      <article class="card">
+        <img src="" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button class="card__button-like card__button-like_active" type="button"></button>
+        </div>
+      </article>
+    </li>
+  </template>
 
   <script src="index.js"></script>
 </body>
