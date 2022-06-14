@@ -8,6 +8,9 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px 0;
 }
+.popup__input:first-of-type {
+  margin-bottom: 19px;
+}
 
 .popup__input:focus {
   outline-color: rgba(0, 0, 0, 0.2);

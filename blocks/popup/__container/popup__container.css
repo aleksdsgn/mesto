@@ -1,4 +1,4 @@
-.popup__edit-profile-form {
+.popup__container {
   margin: 19px;
   box-sizing: border-box;
   width: 430px;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 420px) {
-  .popup__edit-profile-form {
+  .popup__container {
     padding: 25px 22px;
   }
 }

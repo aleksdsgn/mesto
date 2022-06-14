@@ -43,13 +43,25 @@
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup">
-    <form class="popup__edit-profile-form" name="popup">
+  <!-- форма редактирования профиля -->
+  <section class="popup popup_type_edit-profile">
+    <form class="popup__container" name="popup-edit-profile">
       <button class="popup__close-button" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <input class="popup__input popup__input_type_name" type="text" placeholder="Имя">
       <input class="popup__input popup__input_type_job" type="text" placeholder="О себе">
       <button class="popup__submit-button" type="submit">Сохранить</button>
+    </form>
+  </section>
+
+  <!-- форма добавления карточек -->
+  <section class="popup popup_type_add-card">
+    <form class="popup__container" name="popup-add-card">
+      <button class="popup__close-button" type="button"></button>
+      <h3 class="popup__title">Новое место</h3>
+      <input class="popup__input popup__input_type_title" type="text" placeholder="Название">
+      <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку">
+      <button class="popup__submit-button" type="submit">Создать</button>
     </form>
   </section>
 
