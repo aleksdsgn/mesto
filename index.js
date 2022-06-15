@@ -8,7 +8,6 @@ const profileName = document.querySelector('.profile__title'); // отображ
 const profileJob = document.querySelector('.profile__subtitle'); // отображаемая в разметке доп. информация
 
 // добавления карточки
-// const initialCards = ['text 1', 'text 2', 'text 3'];
 const initialCards = [// массив первых шесть карточек которые появляются при загрузке страницы
   {
     name: 'Кадини Мизурина',
@@ -50,38 +49,15 @@ const placesContainer = document.querySelector('.places__container'); // тег 
 
 const cardTemplate = document.querySelector('#card-template').content; // поиск шаблона для карточки
 
-
-// ф-я добавления карточки на страницу
-function renderCard(name, link) {
-  const newElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
-  newElement.querySelector('.card__title').innerText = name;
-  newElement.querySelector('.card__image').src = link;
-  placesContainer.prepend(newElement); // добавляем в контейнер
+// добавление первых 6 карточек
+initialCards.forEach(function (item) {
+  const newElement = cardTemplate.cloneNode(true);
+  newElement.querySelector('.card__title').innerText = item.name;
+  newElement.querySelector('.card__image').src = item.link;
+  newElement.querySelector('.card__image').alt = item.name;
+  placesContainer.append(newElement)
 }
-
-function createCard(e) {
-  e.preventDefault(); // предотвращаем отправку события
-  renderCard(titleInput.value, linkInput.value); // вызов ф-ии
-  titleInput.value = '';
-  linkInput.value = '';
-  closePopup(popupAddCard);
-}
-
-popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
-
-initialCards.forEach(renderCard(Element));
-
-// функция добавления первых 6 карточек
-// initialCards.forEach(function (item) {
-//   // const cardTemplate = document.querySelector('#card-template').content; // поиск шаблона для карточки
-//   // const placesElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
-
-//   placesElement.querySelector('.card__title').textContent = item.name;
-//   placesElement.querySelector('.card__image').src = item.link;
-//   placesElement.querySelector('.card__image').alt = item.name;
-
-//   placesContainer.append(placesElement)
-// });
+);
 
 // ++ функция открытия всех попапов
 function openPopup(namePopup) {
@@ -130,34 +106,24 @@ function editProfileSubmitHandler(e) {
 // отправка введенных данных попапа редактирования профиля на страницу
 popupEditProfile.addEventListener('submit', editProfileSubmitHandler);
 
-/*
-// функция отправки введенных данных попапа добавления карточки на страницу
-function addCardSubmitHandler(e) {
-  e.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // cardTitle.textContent = titleCard.value;
-  // cardImage.src = linkCard.value;
+function renderCard(name, link) { // ф-я добавления карточки на страницу
+  const newElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
+  newElement.querySelector('.card__title').innerText = name;
+  newElement.querySelector('.card__image').src = link;
+  placesContainer.prepend(newElement); // добавляем в контейнер
+}
 
-  // cardTitle.textContent = titleCard.value;
-  // cardImage.src = linkCard.value;
-
-  placesElement.querySelector('.card__title').textContent = titleCard.value;
-  placesElement.querySelector('.card__image').src = linkCard.value;
-  // placesElement.querySelector('.card__image').alt = item.name;
-
-  placesContainer.append(placesElement)
-  // placesElement.querySelector('.card__title').textContent = item.name;
-  // placesElement.querySelector('.card__image').src = item.link;
-  // placesElement.querySelector('.card__image').alt = item.name;
-
-  // placesContainer.append(placesElement)
-
+function createCard(e) {
+  e.preventDefault(); // предотвращаем отправку события
+  renderCard(titleInput.value, linkInput.value); // вызов ф-ии
+  titleInput.value = '';
+  linkInput.value = '';
   closePopup(popupAddCard);
 }
 
-*/
+popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
 
-// отправка введенных данных попапа добавления карточки на страницу
-// popupAddCard.addEventListener('submit', addCardSubmitHandler);
+
 
 /* необязательное задание
 // функция закрытия всех попапов по клавише Escape
