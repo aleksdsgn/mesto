@@ -49,6 +49,8 @@ const placesContainer = document.querySelector('.places__container'); // тег 
 
 const cardTemplate = document.querySelector('#card-template').content; // поиск шаблона для карточки
 
+
+
 // добавление первых 6 карточек
 initialCards.forEach(function (item) {
   const newElement = cardTemplate.cloneNode(true);
@@ -122,6 +124,28 @@ function createCard(e) {
 }
 
 popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
+
+
+const buttonLike = document.querySelectorAll('.card__button-like'); // кнопка лайка
+
+console.log(buttonLike);
+
+// function myFunction(elem) {
+//   elem.classList.toggle('card__button-like_active');
+
+// }
+
+buttonLike.addEventListener('click', function {
+  debugger
+});
+
+// buttonLike.classList.toggle('card__button-like_active'); // переключатель лайка
+
+// buttonLike.addEventListener('click', function() {
+//   console.log('like');
+
+//   buttonLike.classList.toggle('card__button-like_active'); // переключатель лайка
+// });
 
 
 
