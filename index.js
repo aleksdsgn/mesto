@@ -60,6 +60,9 @@ initialCards.forEach(function (item) {
   newElement.querySelector('.card__button-like').addEventListener('click', function(event) {  // переключатель лайка
     event.target.classList.toggle('card__button-like_active');
   });
+  newElement.querySelector('.card__button-delete').addEventListener('click', (event) => { // удаляем карточку
+    event.target.closest('.places__element').remove();
+  });
   placesContainer.append(newElement)
 }
 );
@@ -118,6 +121,9 @@ function renderCard(name, link) { // ф-я добавления карточки
   newElement.querySelector('.card__button-like').addEventListener('click', function(event) {  // переключатель лайка
     event.target.classList.toggle('card__button-like_active');
   });
+  newElement.querySelector('.card__button-delete').addEventListener('click', (event) => { // удаляем карточку
+    event.target.closest('.places__element').remove();
+  });
   placesContainer.prepend(newElement); // добавляем в контейнер
 }
 
@@ -131,7 +137,10 @@ function createCard(e) {
 
 popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
 
-
+// // ф-я удаления карточки
+// function deleteCard(item) {
+//   item.remove();
+// }
 
 /* необязательное задание
 // функция закрытия всех попапов по клавише Escape
