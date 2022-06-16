@@ -57,6 +57,9 @@ initialCards.forEach(function (item) {
   newElement.querySelector('.card__title').innerText = item.name;
   newElement.querySelector('.card__image').src = item.link;
   newElement.querySelector('.card__image').alt = item.name;
+  newElement.querySelector('.card__button-like').addEventListener('click', function(event) {  // переключатель лайка
+    event.target.classList.toggle('card__button-like_active');
+  });
   placesContainer.append(newElement)
 }
 );
@@ -112,6 +115,9 @@ function renderCard(name, link) { // ф-я добавления карточки
   const newElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
   newElement.querySelector('.card__title').innerText = name;
   newElement.querySelector('.card__image').src = link;
+  newElement.querySelector('.card__button-like').addEventListener('click', function(event) {  // переключатель лайка
+    event.target.classList.toggle('card__button-like_active');
+  });
   placesContainer.prepend(newElement); // добавляем в контейнер
 }
 
@@ -124,28 +130,6 @@ function createCard(e) {
 }
 
 popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
-
-
-const buttonLike = document.querySelectorAll('.card__button-like'); // кнопка лайка
-
-console.log(buttonLike);
-
-// function myFunction(elem) {
-//   elem.classList.toggle('card__button-like_active');
-
-// }
-
-buttonLike.addEventListener('click', function {
-  debugger
-});
-
-// buttonLike.classList.toggle('card__button-like_active'); // переключатель лайка
-
-// buttonLike.addEventListener('click', function() {
-//   console.log('like');
-
-//   buttonLike.classList.toggle('card__button-like_active'); // переключатель лайка
-// });
 
 
 
