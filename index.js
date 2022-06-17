@@ -137,6 +137,12 @@ function createCard(e) {
 
 popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
 
+
+// попап фотографии
+cardImage.addEventListener('click', () => {
+  console.log('нажал на картинку');
+})
+
 // // ф-я удаления карточки
 // function deleteCard(item) {
 //   item.remove();
