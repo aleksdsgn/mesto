@@ -1,3 +1,5 @@
+// буду признателен если накидаете советов "можно лучше"
+
 // редактирования профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit'); // кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile'); // селектор попапа редактирования профиля
@@ -48,7 +50,6 @@ const cardTitle = document.querySelector('.card__title'); // отображае�
 const cardImage = document.querySelector('.card__image'); // отображаемая в карточке картинка
 
 const placesContainer = document.querySelector('.places__container'); // тег ul внутрь которого вставляются шаблонные li
-
 const cardTemplate = document.querySelector('#card-template').content; // поиск шаблона для карточки
 
 // открытие картинки
@@ -57,81 +58,81 @@ const popupImage = document.querySelector('.popup__image'); // картинка 
 const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
 const popupCloseButtonImg = popupOpenImg.querySelector('.popup__close-button'); // кнопка закрытия попапа открытия картинки
 
-
-
-
-// ++ функция открытия всех попапов
-function openPopup(namePopup) {
+// ------------функции---------------------------------------------------------
+function openPopup(namePopup) { // ф-я открытия всех попапов
   namePopup.classList.add('popup_opened');
-  // document.addEventListener('keyup', closePopupOnEsc); // функция закрытия попапа по клавише Escape
-  // редактирование профиля
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  // добавление карточки
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  // document.addEventListener('keyup', closePopupOnEsc()); // событие закрытия по Escape
 }
 
-// ++ слушатель на открытие попапа редактирования профиля
-profileEditButton.addEventListener('click', function() {
-  openPopup(popupEditProfile);
-});
-// ++ слушатель на открытие попапа добавления карточки
-profileAddButton.addEventListener('click', function() {
-  openPopup(popupAddCard);
-});
-
-// ++ функция закрытия всех попапов
-function closePopup(namePopup) {
+function closePopup(namePopup) { // ф-я закрытия всех попапов
   namePopup.classList.remove('popup_opened');
-  // document.removeEventListener('keyup', closePopupOnEsc);  // функция закрытия попапа по клавише Escape
+  // document.removeEventListener('keyup', closePopupOnEsc());  // событие закрытия по Escape
 }
 
-// ++ слушатель закрытия попапа редактирования профиля по кнопке закрытия
-popupCloseButtonEditProfile.addEventListener('click', function() {
-  closePopup(popupEditProfile);
-});
-// ++ слушатель закрытия попапа добавления карточки по кнопке закрытия
-popupCloseButtonAddCard.addEventListener('click', function() {
-  closePopup(popupAddCard);
-});
-// ++ слушатель закрытия попапа увеличенной картинки по кнопке закрытия
-popupCloseButtonImg.addEventListener('click', function() {
-  closePopup(popupOpenImg);
-});
+// необязательное задание
+// функция закрытия всех попапов по клавише Escape
+// function closePopupOnEsc(e) {
+//   if (e.code === 'Escape') {
+//     console.log('Нажали на кнопку Esc');
+//     closePopup(namePopup);
+//   }
+// }
 
-// функция отправки введенных данных попапа редактирования профиля на страницу
-function editProfileSubmitHandler(e) {
+//
+// ------------редактирование профиля---------------------------------------------------------
+//
+
+function editProfileSubmitHandler(e) { // ф-я отправки данных редактирования профиля на страницу
   e.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  profileName.textContent = nameInput.value;
+  profileName.textContent = nameInput.value; // передаем новые значения в форму
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
 
-// отправка введенных данных попапа редактирования профиля на страницу
-popupEditProfile.addEventListener('submit', editProfileSubmitHandler);
+popupEditProfile.addEventListener('submit', editProfileSubmitHandler); // событие отправки введенных данных редактирования профиля на страницу
 
+profileEditButton.addEventListener('click', function() { // событие открытия редактирования профиля
+  nameInput.value = profileName.textContent; // выводим что было написано ранее
+  jobInput.value = profileJob.textContent;
+  openPopup(popupEditProfile);
+});
+
+popupCloseButtonEditProfile.addEventListener('click', function() { // событие закрытия редактирования профиля по кнопке Х
+  closePopup(popupEditProfile);
+});
+
+popupEditProfile.addEventListener('click', function(e) { // событие закрытия по клику вне области
+  if (e.target === e.currentTarget) {
+    closePopup(popupEditProfile);
+  }
+});
+
+//
+// ------------добавление карточки---------------------------------------------------------
+//
 function renderCard(name, link) { // ф-я добавления карточки на страницу
   const newElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
-  newElement.querySelector('.card__title').innerText = name;
-  newElement.querySelector('.card__image').src = link;
-  newElement.querySelector('.card__image').alt = name;
-  newElement.querySelector('.card__button-like').addEventListener('click', function(event) {  // переключатель лайка
+  const cardTitle = newElement.querySelector('.card__title');
+  const cardImage = newElement.querySelector('.card__image');
+
+  cardTitle.innerText = name;
+  cardImage.src = link;
+  cardImage.alt = name;
+
+  newElement.querySelector('.card__button-like').addEventListener('click', (event) => {  // переключатель лайка
     event.target.classList.toggle('card__button-like_active');
   });
   newElement.querySelector('.card__button-delete').addEventListener('click', (event) => { // удаляем карточку
     event.target.closest('.places__element').remove();
   });
-  newElement.querySelector('.card__image').addEventListener('click', function() { // открытие картинки
-    popupImage.src = link;
-    popupImage.alt = name;
-    popupCaption.innerText = name;
+  cardImage.addEventListener('click', () => {  // открытие картинки
+    renderImg(name, link);
     openPopup(popupOpenImg);
-  });
+});
   placesContainer.prepend(newElement); // добавляем в контейнер
 }
-// добавление первых 6 карточек
-initialCards.forEach((item) => {
+
+initialCards.forEach((item) => { // добавление первых 6 карточек
   renderCard(item.name, item.link)
 });
 
@@ -143,34 +144,37 @@ function createCard(e) {
   closePopup(popupAddCard);
 }
 
-popupAddCard.addEventListener('submit', createCard); // обработчик добавления карточки
+popupAddCard.addEventListener('submit', createCard); // событие добавления карточки
 
+profileAddButton.addEventListener('click', function() { // событие открытия добавления карточки
+  openPopup(popupAddCard);
+});
 
-// попап фотографии
-// cardImage.addEventListener('click', () => {
-//   console.log('нажал на картинку');
-// })
+popupCloseButtonAddCard.addEventListener('click', function() { // событие закрытия добавления карточки по кнопке Х
+  closePopup(popupAddCard);
+});
 
-// // ф-я удаления карточки
-// function deleteCard(item) {
-//   item.remove();
-// }
-
-/* необязательное задание
-// функция закрытия всех попапов по клавише Escape
-function closePopupOnEsc(e) {
-  if (e.code === 'Escape') {
-    console.log('Нажали на кнопку Esc');
-    closePopup(namePopup);
-  }
-}*/
-
-/* необязательное задание
-// слушатель закрытия попапа редактирования профиля по клику вне области формы
-popupEditProfile.addEventListener('click', function(e) {
+popupAddCard.addEventListener('click', function(e) { // событие закрытия по клику вне области
   if (e.target === e.currentTarget) {
-    closePopup();
-    console.log('клик вне области формы');
+    closePopup(popupAddCard);
   }
 });
-*/
+
+//
+// ------------открытие картинки---------------------------------------------------------
+//
+popupCloseButtonImg.addEventListener('click', function() { // событие закрытия попапа увеличенной картинки по кнопке Х
+  closePopup(popupOpenImg);
+});
+
+function renderImg(name, link) { // ф-я отрисовки увеличенного изображения
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupCaption.innerText = name;
+}
+
+popupOpenImg.addEventListener('click', function(e) { // событие закрытия по клику вне области
+  if (e.target === e.currentTarget) {
+    closePopup(popupOpenImg);
+  }
+});
