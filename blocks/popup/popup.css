@@ -11,5 +11,5 @@
   display: flex;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.8s, opacity 0.8s
+  transition: visibility .3s, opacity .3s
 }
