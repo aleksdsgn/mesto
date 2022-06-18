@@ -49,6 +49,10 @@ const placesContainer = document.querySelector('.places__container'); // тег 
 
 const cardTemplate = document.querySelector('#card-template').content; // поиск шаблона для карточки
 
+const popupOpenImg = document.querySelector('.popup_type_img'); // селектор попапа открытия картинки
+const popupImage = document.querySelector('.popup__image'); // картинка в попапе
+const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
+const popupCloseButtonImg = popupOpenImg.querySelector('.popup__close-button'); // кнопка закрытия попапа открытия картинки
 
 
 // добавление первых 6 карточек
@@ -62,6 +66,12 @@ initialCards.forEach(function (item) {
   });
   newElement.querySelector('.card__button-delete').addEventListener('click', (event) => { // удаляем карточку
     event.target.closest('.places__element').remove();
+  });
+  newElement.querySelector('.card__image').addEventListener('click', function() { // открытие картинки
+    popupImage.src = item.link;
+    popupImage.alt = item.name;
+    popupCaption.innerText = item.name;
+    openPopup(popupOpenImg);
   });
   placesContainer.append(newElement)
 }
@@ -102,6 +112,10 @@ popupCloseButtonEditProfile.addEventListener('click', function() {
 popupCloseButtonAddCard.addEventListener('click', function() {
   closePopup(popupAddCard);
 });
+// ++ слушатель закрытия попапа увеличенной картинки по кнопке закрытия
+popupCloseButtonImg.addEventListener('click', function() {
+  closePopup(popupOpenImg);
+});
 
 // функция отправки введенных данных попапа редактирования профиля на страницу
 function editProfileSubmitHandler(e) {
@@ -118,11 +132,18 @@ function renderCard(name, link) { // ф-я добавления карточки
   const newElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
   newElement.querySelector('.card__title').innerText = name;
   newElement.querySelector('.card__image').src = link;
+  newElement.querySelector('.card__image').alt = name;
   newElement.querySelector('.card__button-like').addEventListener('click', function(event) {  // переключатель лайка
     event.target.classList.toggle('card__button-like_active');
   });
   newElement.querySelector('.card__button-delete').addEventListener('click', (event) => { // удаляем карточку
     event.target.closest('.places__element').remove();
+  });
+  newElement.querySelector('.card__image').addEventListener('click', function() { // открытие картинки
+    popupImage.src = link;
+    popupImage.alt = name;
+    popupCaption.innerText = name;
+    openPopup(popupOpenImg);
   });
   placesContainer.prepend(newElement); // добавляем в контейнер
 }
@@ -139,9 +160,9 @@ popupAddCard.addEventListener('submit', createCard); // обработчик д�
 
 
 // попап фотографии
-cardImage.addEventListener('click', () => {
-  console.log('нажал на картинку');
-})
+// cardImage.addEventListener('click', () => {
+//   console.log('нажал на картинку');
+// })
 
 // // ф-я удаления карточки
 // function deleteCard(item) {
