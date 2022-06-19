@@ -81,15 +81,14 @@ function closePopup(namePopup) { // ф-я закрытия всех попапо
 //
 // ------------редактирование профиля---------------------------------------------------------
 //
-
-function editProfileSubmitHandler(e) { // ф-я отправки данных редактирования профиля на страницу
+function handleProfileFormSubmit(e) { // ф-я отправки данных редактирования профиля на страницу
   e.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value; // передаем новые значения в форму
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
 
-popupEditProfile.addEventListener('submit', editProfileSubmitHandler); // событие отправки введенных данных редактирования профиля на страницу
+popupEditProfile.addEventListener('submit', handleProfileFormSubmit); // событие отправки введенных данных редактирования профиля на страницу
 
 profileEditButton.addEventListener('click', function() { // событие открытия редактирования профиля
   nameInput.value = profileName.textContent; // выводим что было написано ранее
@@ -110,7 +109,7 @@ popupEditProfile.addEventListener('click', function(e) { // событие за�
 //
 // ------------добавление карточки---------------------------------------------------------
 //
-function renderCard(name, link) { // ф-я добавления карточки на страницу
+function createCard(name, link) { // ф-я создания новой карточки
   const newElement = cardTemplate.cloneNode(true); // клонирование содержимого шаблона
   const cardTitle = newElement.querySelector('.card__title');
   const cardImage = newElement.querySelector('.card__image');
@@ -129,22 +128,31 @@ function renderCard(name, link) { // ф-я добавления карточки
     renderImg(name, link);
     openPopup(popupOpenImg);
 });
-  placesContainer.prepend(newElement); // добавляем в контейнер
+  return newElement;
 }
 
-initialCards.forEach((item) => { // добавление первых 6 карточек
-  renderCard(item.name, item.link)
-});
+function addCard(name, link) { // ф-я добавления новой карточки
+  const card = createCard(name, link);
+  placesContainer.prepend(card); // добавляем в контейнер
+}
 
-function createCard(e) {
+function renderInitCards() {
+  initialCards.forEach((item) => { // добавление первых 6 карточек
+    addCard(item.name, item.link)
+    });
+}
+
+renderInitCards(); // вызов отрисовки первых 6 карточек
+
+function hundleAddCardSubmit(e) {
   e.preventDefault(); // предотвращаем отправку события
-  renderCard(titleInput.value, linkInput.value); // вызов ф-ии
+  addCard(titleInput.value, linkInput.value); // вызов ф-ии
   titleInput.value = '';
   linkInput.value = '';
   closePopup(popupAddCard);
 }
 
-popupAddCard.addEventListener('submit', createCard); // событие добавления карточки
+popupAddCard.addEventListener('submit', hundleAddCardSubmit); // событие добавления карточки
 
 profileAddButton.addEventListener('click', function() { // событие открытия добавления карточки
   openPopup(popupAddCard);
