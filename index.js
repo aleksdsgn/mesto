@@ -12,33 +12,6 @@ const profileName = document.querySelector('.profile__title'); // отображ
 const profileJob = document.querySelector('.profile__subtitle'); // отображаемая в разметке доп. информация
 
 // добавления карточки
-const initialCards = [// массив первых шесть карточек которые появляются при загрузке страницы
-  {
-    name: 'Кадини Мизурина',
-    link: './images/card__cadini-misurina.jpg'
-  },
-  {
-    name: 'Водопад Диялума, Шри-Ланка',
-    link: './images/card__diyaluma-falls-sri-lanka.jpg'
-  },
-  {
-    name: 'Озеро Гозаузеен, Австрия',
-    link: './images/card__gosauseen-austria.jpg'
-  },
-  {
-    name: 'о. Крит, Греция',
-    link: './images/card__kreta-griechenland.jpg'
-  },
-  {
-    name: 'г. Уаргла, Алжир',
-    link: './images/card__ouargla-algeria.jpg'
-  },
-  {
-    name: 'Сива, Египет',
-    link: './images/card__siwa-egypt.jpg'
-  }
-];
-
 const profileAddButton = document.querySelector('.profile__button_type_add'); // кнопка открытия добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card'); // селектор попапа добавления карточки
 const popupCloseButtonAddCard = popupAddCard.querySelector('.popup__close-button'); // кнопка закрытия попапа добавления карточки
