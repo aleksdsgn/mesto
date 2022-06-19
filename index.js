@@ -34,22 +34,21 @@ const popupCloseButtonImg = popupOpenImg.querySelector('.popup__close-button'); 
 // ------------функции---------------------------------------------------------
 function openPopup(namePopup) { // ф-я открытия всех попапов
   namePopup.classList.add('popup_opened');
-  // document.addEventListener('keyup', closePopupOnEsc()); // событие закрытия по Escape
+  document.addEventListener('keyup', closePopupOnEsc); // событие закрытия по Escape
 }
 
 function closePopup(namePopup) { // ф-я закрытия всех попапов
   namePopup.classList.remove('popup_opened');
-  // document.removeEventListener('keyup', closePopupOnEsc());  // событие закрытия по Escape
+  document.removeEventListener('keyup', closePopupOnEsc); // событие закрытия по Escape
 }
 
-// необязательное задание
-// функция закрытия всех попапов по клавише Escape
-// function closePopupOnEsc(e) {
-//   if (e.code === 'Escape') {
-//     console.log('Нажали на кнопку Esc');
-//     closePopup(namePopup);
-//   }
-// }
+//функция закрытия всех попапов по клавише Escape
+function closePopupOnEsc(e) {
+  if (e.key === 'Escape') {
+    console.log(`Нажали на кнопку ${e.key}`);
+    document.getElementsByClassName('popup').classList.remove('popup_opened');
+  }
+}
 
 //
 // ------------редактирование профиля---------------------------------------------------------
