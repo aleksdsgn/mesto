@@ -86,7 +86,7 @@ function createCard(name, link) { // ф-я создания новой карт�
   const cardTitle = newElement.querySelector('.card__title');
   const cardImage = newElement.querySelector('.card__image');
 
-  cardTitle.innerText = name;
+  cardTitle.textContent = name;
   cardImage.src = link;
   cardImage.alt = name;
 
@@ -116,12 +116,11 @@ function renderInitCards() {
 
 renderInitCards(); // вызов отрисовки первых 6 карточек
 
-function hundleAddCardSubmit(e) {
-  e.preventDefault(); // предотвращаем отправку события
+function hundleAddCardSubmit(event) {
+  event.preventDefault(); // предотвращаем отправку события
   addCard(titleInput.value, linkInput.value); // вызов ф-ии
-  titleInput.value = '';
-  linkInput.value = '';
   closePopup(popupAddCard);
+  event.target.reset(); // очищаем поля формы
 }
 
 popupAddCard.addEventListener('submit', hundleAddCardSubmit); // событие добавления карточки
@@ -150,7 +149,7 @@ popupCloseButtonImg.addEventListener('click', function() { // событие з�
 function renderImg(name, link) { // ф-я отрисовки увеличенного изображения
   popupImage.src = link;
   popupImage.alt = name;
-  popupCaption.innerText = name;
+  popupCaption.textContent = name;
 }
 
 popupOpenImg.addEventListener('click', function(e) { // событие закрытия по клику вне области
