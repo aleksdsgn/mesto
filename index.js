@@ -1,9 +1,11 @@
-// буду признателен если накидаете советов "можно лучше"
+// Сергей Криворучко - ты супер! Накидал много дельных советов и очень подробно всё объяснил.
+// Я не всё понял как исправить. Про замыкания статья показалась сложной.
+// и с закрытием по Escape не вышло. Просто нужно подробней углубиться.
+// Спасибо большое за такой разбор! Это лучший разбор моей практической работы!
 
 // редактирования профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit'); // кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile'); // селектор попапа редактирования профиля
-const popupCloseButtonEditProfile = popupEditProfile.querySelector('.popup__close-button'); // кнопка закрытия попапа редактирования профиля
 
 const nameInput = popupEditProfile.querySelector('.popup__input_type_name'); // поле ввода имени в профиле
 const jobInput = popupEditProfile.querySelector('.popup__input_type_job'); // поле ввода доп. информации в профиле
@@ -14,7 +16,6 @@ const profileJob = document.querySelector('.profile__subtitle'); // отобра
 // добавления карточки
 const profileAddButton = document.querySelector('.profile__button_type_add'); // кнопка открытия добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card'); // селектор попапа добавления карточки
-const popupCloseButtonAddCard = popupAddCard.querySelector('.popup__close-button'); // кнопка закрытия попапа добавления карточки
 
 const titleInput = popupAddCard.querySelector('.popup__input_type_title'); // поле ввода заголовка карточки
 const linkInput = popupAddCard.querySelector('.popup__input_type_link'); // поле ввода ссылки на картинку
@@ -29,7 +30,6 @@ const cardTemplate = document.querySelector('#card-template').content; // пои
 const popupOpenImg = document.querySelector('.popup_type_img'); // селектор попапа открытия картинки
 const popupImage = document.querySelector('.popup__image'); // картинка в попапе
 const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
-const popupCloseButtonImg = popupOpenImg.querySelector('.popup__close-button'); // кнопка закрытия попапа открытия картинки
 
 // ------------функции---------------------------------------------------------
 function openPopup(namePopup) { // ф-я открытия всех попапов
@@ -66,16 +66,6 @@ profileEditButton.addEventListener('click', function() { // событие от�
   nameInput.value = profileName.textContent; // выводим что было написано ранее
   jobInput.value = profileJob.textContent;
   openPopup(popupEditProfile);
-});
-
-popupCloseButtonEditProfile.addEventListener('click', function() { // событие закрытия редактирования профиля по кнопке Х
-  closePopup(popupEditProfile);
-});
-
-popupEditProfile.addEventListener('click', function(e) { // событие закрытия по клику вне области
-  if (e.target === e.currentTarget) {
-    closePopup(popupEditProfile);
-  }
 });
 
 //
@@ -129,31 +119,19 @@ profileAddButton.addEventListener('click', function() { // событие отк
   openPopup(popupAddCard);
 });
 
-popupCloseButtonAddCard.addEventListener('click', function() { // событие закрытия добавления карточки по кнопке Х
-  closePopup(popupAddCard);
-});
-
-popupAddCard.addEventListener('click', function(e) { // событие закрытия по клику вне области
-  if (e.target === e.currentTarget) {
-    closePopup(popupAddCard);
-  }
-});
-
 //
 // ------------открытие картинки---------------------------------------------------------
 //
-popupCloseButtonImg.addEventListener('click', function() { // событие закрытия попапа увеличенной картинки по кнопке Х
-  closePopup(popupOpenImg);
-});
-
 function renderImg(name, link) { // ф-я отрисовки увеличенного изображения
   popupImage.src = link;
   popupImage.alt = name;
   popupCaption.textContent = name;
 }
 
-popupOpenImg.addEventListener('click', function(e) { // событие закрытия по клику вне области
-  if (e.target === e.currentTarget) {
-    closePopup(popupOpenImg);
-  }
+document.querySelectorAll('.popup').forEach( popup => { // ф-я закрытия всех модалок по клику вне окна или по Х
+  popup.addEventListener('mousedown', (event) => {
+    if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
+      closePopup(popup);
+    };
+  });
 });
