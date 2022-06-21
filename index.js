@@ -1,8 +1,3 @@
-// Сергей Криворучко - ты супер! Накидал много дельных советов и очень подробно всё объяснил.
-// Я не всё понял как исправить. Про замыкания статья показалась сложной.
-// и с закрытием по Escape не вышло. Просто нужно подробней углубиться.
-// Спасибо большое за такой разбор! Это лучший разбор моей практической работы!
-
 // редактирования профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit'); // кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile'); // селектор попапа редактирования профиля
@@ -34,21 +29,22 @@ const popupCaption = document.querySelector('.popup__caption'); // подпис�
 // ------------функции---------------------------------------------------------
 function openPopup(namePopup) { // ф-я открытия всех попапов
   namePopup.classList.add('popup_opened');
-  // document.addEventListener('keyup', closePopupOnEsc); // событие закрытия по Escape
+  document.addEventListener('keydown', closePopupOnEsc); // событие закрытия по Escape
 }
 
 function closePopup(namePopup) { // ф-я закрытия всех попапов
   namePopup.classList.remove('popup_opened');
-  // document.removeEventListener('keyup', closePopupOnEsc); // событие закрытия по Escape
+  document.removeEventListener('keydown', closePopupOnEsc); // событие закрытия по Escape
 }
 
 //функция закрытия всех попапов по клавише Escape
-// function closePopupOnEsc(e) {
-//   if (e.key === 'Escape') {
-//     console.log(`Нажали на кнопку ${e.key}`);
-//     document.getElementsByClassName('popup').classList.remove('popup_opened'); // пока не понял ка кэто сделать
-//   }
-// }
+function closePopupOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    console.log(`Нажали на кнопку ${evt.key}`);
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
 
 //
 // ------------редактирование профиля---------------------------------------------------------
@@ -80,11 +76,11 @@ function createCard(name, link) { // ф-я создания новой карт�
   cardImage.src = link;
   cardImage.alt = name;
 
-  newElement.querySelector('.card__button-like').addEventListener('click', (event) => {  // переключатель лайка
-    event.target.classList.toggle('card__button-like_active');
+  newElement.querySelector('.card__button-like').addEventListener('click', (evt) => {  // переключатель лайка
+    evt.target.classList.toggle('card__button-like_active');
   });
-  newElement.querySelector('.card__button-delete').addEventListener('click', (event) => { // удаляем карточку
-    event.target.closest('.places__element').remove();
+  newElement.querySelector('.card__button-delete').addEventListener('click', (evt) => { // удаляем карточку
+    evt.target.closest('.places__element').remove();
   });
   cardImage.addEventListener('click', () => {  // открытие картинки
     renderImg(name, link);
@@ -106,11 +102,11 @@ function renderInitCards() {
 
 renderInitCards(); // вызов отрисовки первых 6 карточек
 
-function hundleAddCardSubmit(event) {
-  event.preventDefault(); // предотвращаем отправку события
+function hundleAddCardSubmit(evt) {
+  evt.preventDefault(); // предотвращаем отправку события
   addCard(titleInput.value, linkInput.value); // вызов ф-ии
   closePopup(popupAddCard);
-  event.target.reset(); // очищаем поля формы
+  evt.target.reset(); // очищаем поля формы
 }
 
 popupAddCard.addEventListener('submit', hundleAddCardSubmit); // событие добавления карточки
@@ -129,8 +125,8 @@ function renderImg(name, link) { // ф-я отрисовки увеличенн�
 }
 
 document.querySelectorAll('.popup').forEach( popup => { // ф-я закрытия всех модалок по клику вне окна или по Х
-  popup.addEventListener('mousedown', (event) => {
-    if (event.target === event.currentTarget || event.target.classList.contains('popup__close-button')) {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
       closePopup(popup);
     };
   });
