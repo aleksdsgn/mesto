@@ -1,93 +1,125 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="место, красивые места, аналог инстаграмма, поделиться местом, поделиться красотой, красивый вид">
-    <meta name="description" content="Сервис с интересными местами на планете. Можно поделиться своим любимым местом во всеми.">
-    <meta name="author" content="Алексей Шляпников">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="место, красивые места, аналог инстаграмма, поделиться местом, поделиться красотой, красивый вид"
+    />
+    <meta
+      name="description"
+      content="Сервис с интересными местами на планете. Можно поделиться своим любимым местом во всеми."
+    />
+    <meta name="author" content="Алексей Шляпников" />
     <title>Mesto Russia</title>
-    <link rel="stylesheet" href="./pages/index.css">
-</head>
-<body class="page">
-  <header class="header">
-    <img src="./images/logo.svg" alt="Логотип Mesto Russia" class="header__logo">
-  </header>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+  <body class="page">
+    <header class="header">
+      <img
+        src="./images/logo.svg"
+        alt="Логотип Mesto Russia"
+        class="header__logo"
+      />
+    </header>
 
-  <main class="content">
-
-    <section class="profile">
-      <img src="./images/profile__avatar.jpg" alt="Аватар профиля" class="profile__avatar">
-      <div class="profile__info">
-        <div class="profile__title-with-button">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__button profile__button_type_edit" type="button"></button>
+    <main class="content">
+      <section class="profile">
+        <img
+          src="./images/profile__avatar.jpg"
+          alt="Аватар профиля"
+          class="profile__avatar"
+        />
+        <div class="profile__info">
+          <div class="profile__title-with-button">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button
+              class="profile__button profile__button_type_edit"
+              type="button"
+            ></button>
+          </div>
+          <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <p class="profile__subtitle">Исследователь океана</p>
-      </div>
-      <button class="profile__button profile__button_type_add" type="button"></button>
+        <button
+          class="profile__button profile__button_type_add"
+          type="button"
+        ></button>
+      </section>
+
+      <section class="places">
+        <ul class="places__container">
+          <!-- контейнер для шаблонов карточек -->
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">© 2022 Mesto Russia</p>
+    </footer>
+
+    <!-- форма редактирования профиля -->
+    <section class="popup popup_type_edit-profile">
+      <form class="popup__container" name="popup-edit-profile">
+        <button class="popup__close-button" type="button"></button>
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <input
+          class="popup__input popup__input_type_name"
+          type="text"
+          placeholder="Имя"
+        />
+        <input
+          class="popup__input popup__input_type_job"
+          type="text"
+          placeholder="О себе"
+        />
+        <button class="popup__submit-button" type="submit">Сохранить</button>
+      </form>
     </section>
 
-    <section class="places">
-
-      <ul class="places__container">
-        <!-- контейнер для шаблонов карточек -->
-      </ul>
-
+    <!-- форма добавления карточек -->
+    <section class="popup popup_type_add-card">
+      <form class="popup__container" name="popup-add-card">
+        <button class="popup__close-button" type="button"></button>
+        <h3 class="popup__title">Новое место</h3>
+        <input
+          class="popup__input popup__input_type_title"
+          type="text"
+          placeholder="Название"
+        />
+        <input
+          class="popup__input popup__input_type_link"
+          type="text"
+          placeholder="Ссылка на картинку"
+        />
+        <button class="popup__submit-button" type="submit">Создать</button>
+      </form>
     </section>
 
-  </main>
+    <!-- форма отображения картинок в крупном виде -->
+    <section class="popup popup_type_img">
+      <figure class="popup__img-container" name="popup-img">
+        <button class="popup__close-button" type="button"></button>
+        <img class="popup__image" />
+        <figcaption class="popup__caption"></figcaption>
+      </figure>
+    </section>
 
-  <footer class="footer">
-    <p class="footer__copyright">© 2022 Mesto Russia</p>
-  </footer>
+    <template id="card-template">
+      <li class="places__element">
+        <article class="card">
+          <button class="card__button-delete" type="button"></button>
+          <img class="card__image" />
+          <div class="card__info">
+            <h2 class="card__title"></h2>
+            <button class="card__button-like" type="button"></button>
+          </div>
+        </article>
+      </li>
+    </template>
 
-  <!-- форма редактирования профиля -->
-  <section class="popup popup_type_edit-profile">
-    <form class="popup__container" name="popup-edit-profile">
-      <button class="popup__close-button" type="button"></button>
-      <h3 class="popup__title">Редактировать профиль</h3>
-      <input class="popup__input popup__input_type_name" type="text" placeholder="Имя">
-      <input class="popup__input popup__input_type_job" type="text" placeholder="О себе">
-      <button class="popup__submit-button" type="submit">Сохранить</button>
-    </form>
-  </section>
-
-  <!-- форма добавления карточек -->
-  <section class="popup popup_type_add-card">
-    <form class="popup__container" name="popup-add-card">
-      <button class="popup__close-button" type="button"></button>
-      <h3 class="popup__title">Новое место</h3>
-      <input class="popup__input popup__input_type_title" type="text" placeholder="Название">
-      <input class="popup__input popup__input_type_link" type="text" placeholder="Ссылка на картинку">
-      <button class="popup__submit-button" type="submit">Создать</button>
-    </form>
-  </section>
-
-  <!-- форма отображения картинок в крупном виде -->
-  <section class="popup popup_type_img">
-    <figure class="popup__img-container" name="popup-img">
-      <button class="popup__close-button" type="button"></button>
-      <img class="popup__image">
-      <figcaption class="popup__caption"></figcaption>
-    </figure>
-  </section>
-
-  <template id="card-template">
-    <li class="places__element">
-      <article class="card">
-        <button class="card__button-delete" type="button"></button>
-        <img class="card__image">
-        <div class="card__info">
-          <h2 class="card__title"></h2>
-          <button class="card__button-like" type="button"></button>
-        </div>
-      </article>
-    </li>
-  </template>
-
-  <script src="cards.js"></script>
-  <script src="index.js"></script>
-</body>
+    <script src="cards.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
