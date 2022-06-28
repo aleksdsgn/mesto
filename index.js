@@ -1,6 +1,7 @@
-// редактирования профиля
+// редактирование профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit'); // кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile'); // селектор попапа редактирования профиля
+const formEfitProfile = document.forms.profile; // форма
 
 const nameInput = popupEditProfile.querySelector('.popup__input_type_name'); // поле ввода имени в профиле
 const jobInput = popupEditProfile.querySelector('.popup__input_type_job'); // поле ввода доп. информации в профиле
@@ -8,9 +9,11 @@ const jobInput = popupEditProfile.querySelector('.popup__input_type_job'); // п
 const profileName = document.querySelector('.profile__title'); // отображаемое в разметке имя профиля
 const profileJob = document.querySelector('.profile__subtitle'); // отображаемая в разметке доп. информация
 
-// добавления карточки
+// добавление карточки
 const profileAddButton = document.querySelector('.profile__button_type_add'); // кнопка открытия добавления карточки
 const popupAddCard = document.querySelector('.popup_type_add-card'); // селектор попапа добавления карточки
+const formAddCard = document.forms.place; // форма
+const buttonSubmitFormAddCard = formAddCard.querySelector('.popup__submit-button');
 
 const titleInput = popupAddCard.querySelector('.popup__input_type_title'); // поле ввода заголовка карточки
 const linkInput = popupAddCard.querySelector('.popup__input_type_link'); // поле ввода ссылки на картинку
@@ -26,9 +29,30 @@ const popupOpenImg = document.querySelector('.popup_type_img'); // селект�
 const popupImage = document.querySelector('.popup__image'); // картинка в попапе
 const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
 
+// набор селекторов для работы с формами
+const selectorsForm = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+};
+
+
+// включение валидации всех форм
+enableValidation(selectorsForm);
+
 //
 // ------------функции---------------------------------------------------------
 //
+function openPopupAddCard() {
+  formAddCard.reset(); // сброс заполненных полей при повторном открытии
+  buttonSubmitFormAddCard.setAttribute('disabled', true);
+  buttonSubmitFormAddCard.classList.add('popup__submit-button_disabled');
+  openPopup(popupAddCard);
+}
+
   // ф-я открытия всех попапов
 function openPopup(namePopup) {
   namePopup.classList.add('popup_opened');
@@ -59,11 +83,12 @@ function handleProfileFormSubmit(e) {
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
-
-popupEditProfile.addEventListener('submit', handleProfileFormSubmit); // событие отправки введенных данных редактирования профиля на страницу
+  // событие отправки введенных данных редактирования профиля на страницу
+popupEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
   // событие открытия редактирования профиля
 profileEditButton.addEventListener('click', function () {
+  resetForm(formEfitProfile, selectorsForm);
   nameInput.value = profileName.textContent; // выводим что было написано ранее
   jobInput.value = profileJob.textContent;
   openPopup(popupEditProfile);
@@ -124,11 +149,15 @@ function hundleAddCardSubmit(evt) {
   evt.target.reset(); // очищаем поля формы
 }
 
-popupAddCard.addEventListener('submit', hundleAddCardSubmit); // событие добавления карточки
+  // событие добавления карточки
+popupAddCard.addEventListener('submit', hundleAddCardSubmit);
 
   // событие открытия добавления карточки
 profileAddButton.addEventListener('click', function () {
+  resetForm(formAddCard, selectorsForm);
   openPopup(popupAddCard);
+  //отключить кнопку
+  disableButton(formAddCard.submit, selectorsForm);
 });
 
 //

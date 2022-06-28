@@ -61,7 +61,7 @@
 
     <!-- форма редактирования профиля -->
     <section class="popup popup_type_edit-profile">
-      <form class="popup__form" name="popup-edit-profile" novalidate>
+      <form class="popup__form" name="profile" novalidate>
         <button class="popup__close-button" type="button"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <label for="name-input" class="popup__field">
@@ -92,13 +92,13 @@
             class="popup__error popup__error_visible job-input-error"
           ></span>
         </label>
-        <button class="popup__submit-button" type="submit">Сохранить</button>
+        <button class="popup__submit-button" type="submit" name="submit">Сохранить</button>
       </form>
     </section>
 
     <!-- форма добавления карточек -->
     <section class="popup popup_type_add-card">
-      <form class="popup__form" name="popup-add-card" novalidate>
+      <form class="popup__form" name="place" novalidate>
         <button class="popup__close-button" type="button"></button>
         <h3 class="popup__title">Новое место</h3>
         <label for="title-input" class="popup__field">
@@ -127,7 +127,7 @@
             class="popup__error popup__error_visible link-input-error"
           ></span>
         </label>
-        <button class="popup__submit-button" type="submit">Создать</button>
+        <button class="popup__submit-button" type="submit" name="submit">Создать</button>
       </form>
     </section>
 
@@ -154,7 +154,7 @@
     </template>
 
     <script src="cards.js"></script>
-    <script src="index.js"></script>
     <script src="validate.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

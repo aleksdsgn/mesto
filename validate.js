@@ -8,7 +8,9 @@ const showInputError = (formElement, inputElement, errorMessage, setting) => {
 
 // спрятать ошибку
 const hideInputError = (formElement, inputElement, setting) => {
+  console.log({formElement, inputElement, setting, selector:`.${inputElement.id}-error`});
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  console.log(errorElement);
   inputElement.classList.remove(setting.inputErrorClass);
   errorElement.classList.remove(setting.errorClass);
   errorElement.textContent = '';
@@ -24,21 +26,30 @@ const checkInputValidity = (formElement, inputElement, setting) => {
 };
 
 // проверяет есть ли не валидные поля
-// возможно вместо input нужно inputElement
 const hasInvalidInput = (inputList) => {
-  return inputList.some((input) => {
-    return !input.validity.valid;
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
   });
 };
+
+// отключить кнопку
+const disableButton = (buttonElement, setting) => {
+  buttonElement.classList.add(setting.inactiveButtonClass);
+  buttonElement.setAttribute('disabled', true);
+}
+
+// включить кнопку
+const enableButton = (buttonElement, setting) => {
+  buttonElement.classList.remove(setting.inactiveButtonClass);
+  buttonElement.removeAttribute('disabled');
+}
 
 // поведение кнопки сабмита если есть невалидный инпут
 const toggleButtonState = (inputList, buttonElement, setting) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(setting.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    disableButton(buttonElement, setting);
   } else {
-    buttonElement.classList.remove(setting.inactiveButtonClass);
-    buttonElement.removeAttribute('disabled');
+    enableButton(buttonElement, setting);
   }
 };
 
@@ -71,12 +82,11 @@ const enableValidation = (setting) => {
   });
 };
 
-// включение валидации всех форм
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-});
+// сброс введеных данных после закрытия попапа
+const resetForm = (form, setting) => {
+  form.reset();
+  const listInputs = Array.from(form.querySelectorAll(setting.inputSelector));
+  listInputs.forEach((inputElement) => {
+    hideInputError(form, inputElement, setting);
+  });
+};
