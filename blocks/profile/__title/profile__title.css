@@ -5,11 +5,8 @@
   font-size: 42px;
   line-height: 1.14;
   max-width: 294px;
-  /* на случай длинного имени */
-  overflow-wrap: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
 }
 

@@ -4,11 +4,8 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
-  /* на случай длинного описания */
-  overflow-wrap: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
 }
 
