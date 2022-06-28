@@ -1,5 +1,3 @@
-// буду признателен если накидаете советов "можно лучше" 😀
-
 // показать ошибку
 const showInputError = (formElement, inputElement, errorMessage, setting) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -82,5 +80,3 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible',
 });
-
-// буду признателен если накидаете советов "можно лучше" 😀

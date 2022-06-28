@@ -1,5 +1,3 @@
-// буду признателен если накидаете советов "можно лучше" 😀
-
 // редактирования профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit'); // кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile'); // селектор попапа редактирования профиля
@@ -46,7 +44,6 @@ function closePopup(namePopup) {
 //функция закрытия всех попапов по клавише Escape
 function closePopupOnEsc(evt) {
   if (evt.key === 'Escape') {
-    console.log(`Нажали на кнопку ${evt.key}`);
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
@@ -155,5 +152,3 @@ document.querySelectorAll('.popup').forEach((popup) => {
     }
   });
 });
-
-// буду признателен если накидаете советов "можно лучше" 😀
