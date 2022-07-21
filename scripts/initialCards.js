@@ -1,5 +1,5 @@
 // массив первых шесть карточек которые появляются при загрузке страницы
-const initialCards = [
+export default [
   {
     name: 'Кадини Мизурина',
     link: './images/card__cadini-misurina.jpg'
