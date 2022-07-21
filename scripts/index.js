@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import initialCards from './initialCards.js';
+import FormValidator from './FormValidator.js';
 
 // редактирование профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit');
@@ -37,14 +38,13 @@ const popupCaption = document.querySelector('.popup__caption'); // подпис�
 // ------------ работа с попапами ------------ //
 
 // открытие всех попапов
-function openPopup(namePopup) {
-  console.log(namePopup);
-  namePopup.classList.add('popup_opened');
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupOnEsc);
 }
 // закрытие всех попапов
-function closePopup(namePopup) {
-  namePopup.classList.remove('popup_opened');
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupOnEsc);
 }
 
@@ -118,7 +118,7 @@ function addCard(card) {
 // добавление первых 6 карточек
 initialCards.forEach((item) => {
   const card = new Card(item, '.card-template', () => {
-    renderImg(item.name, item.link);
+    handleCardClick(item.name, item.link);
     openPopup(popupOpenImg);
   });
   const cardElement = card.generateCard();
@@ -135,7 +135,7 @@ function hundleAddCardSubmit(evt) {
   item.link = linkInput.value;
 
   const card = new Card(item, '.card-template', () => {
-    renderImg(item.name, item.link);
+    handleCardClick(item.name, item.link);
     openPopup(popupOpenImg);
   });
   const cardElement = card.generateCard();
@@ -147,7 +147,7 @@ function hundleAddCardSubmit(evt) {
   // evt.target.reset(); // очищаем поля формы
 }
 
-function renderImg(name, link) {
+function handleCardClick(name, link) {
   popupImage.src = link;
   popupImage.alt = name;
   popupCaption.textContent = name;
