@@ -6,12 +6,10 @@ export default class Card {
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    // this._cardImage = this._element.querySelector('.card__image');
   }
 
    // содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
   _getTemplate() {
-    // ? зачем лезть так глубоко и может надо глубже
     const cardElement = document
       .querySelector(this._cardSelector)
       .content
@@ -47,13 +45,3 @@ export default class Card {
   }
 
 }
-// console.log();
-
-/*
--Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
--принимает в конструктор её данные и селектор её template-элемента;
--содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
--содержит приватные методы для каждого обработчика;
--содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
--Для каждой карточки создайте экземпляр класса Card.
-*/
