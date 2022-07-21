@@ -1,12 +1,13 @@
 import Card from './Card.js';
 import initialCards from './initialCards.js';
 import FormValidator from './FormValidator.js';
+import selectorsForm from './selectorsForm.js';
 
 // редактирование профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
 
-const formEfitProfile = document.forms.profile;
+const formEditProfile = document.forms.profile;
 
 const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
 const jobInput = popupEditProfile.querySelector('.popup__input_type_job');
@@ -34,6 +35,11 @@ const cardTemplate = document.querySelector('.card-template').content;
 const popupOpenImg = document.querySelector('.popup_type_img');
 const popupImage = document.querySelector('.popup__image'); // картинка в попапе
 const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
+
+// ------------ валидация форм ------------ //
+
+const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
+validationFormEditProfile.enableValidation();
 
 // ------------ работа с попапами ------------ //
 
