@@ -28,9 +28,6 @@ const linkInput = popupAddCard.querySelector('.popup__input_type_link');
 // контейнер для шаблонов карточек
 const placesContainer = document.querySelector('.places__container');
 
-// шаблон карточки
-const cardTemplate = document.querySelector('.card-template').content;
-
 // попап с увеличенной картинкой
 const popupOpenImg = document.querySelector('.popup_type_img');
 const popupImage = document.querySelector('.popup__image'); // картинка в попапе
@@ -40,6 +37,9 @@ const popupCaption = document.querySelector('.popup__caption'); // подпис�
 
 const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
 validationFormEditProfile.enableValidation();
+
+const validationFormAddCard = new FormValidator(selectorsForm, formAddCard);
+validationFormAddCard.enableValidation();
 
 // ------------ работа с попапами ------------ //
 
@@ -90,9 +90,7 @@ popupEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 // событие открытия редактирования профиля
 profileEditButton.addEventListener('click', () => {
-
-
-  // resetForm(formEfitProfile, selectorsForm);
+  validationFormEditProfile.resetForm();
 
   // вывод ранее написаного
   nameInput.value = profileName.textContent;
@@ -105,15 +103,8 @@ profileEditButton.addEventListener('click', () => {
 
 // событие открытия добавления карточки
 profileAddButton.addEventListener('click', () => {
-
-  // !!!!!!!!!!! уже валидация !!!!!!!!!!!!!!!
-  // resetForm(formAddCard, selectorsForm);
-
+  validationFormAddCard.resetForm();
   openPopup(popupAddCard);
-  //отключить кнопку
-
-  // !!!!!!!!!!! уже валидация !!!!!!!!!!!!!!!
-  // disableButton(formAddCard.submit, selectorsForm);
 });
 
 // добавления новой карточки в контейнер
@@ -136,7 +127,6 @@ function hundleAddCardSubmit(evt) {
   evt.preventDefault();
 
   const item = {};
-
   item.name = titleInput.value;
   item.link = linkInput.value;
 
@@ -149,8 +139,8 @@ function hundleAddCardSubmit(evt) {
 
   closePopup(popupAddCard);
 
-  // !!!!!!!!!!! уже валидация !!!!!!!!!!!!!!!
-  // evt.target.reset(); // очищаем поля формы
+  // очищаем поля формы
+  evt.target.reset();
 }
 
 function handleCardClick(name, link) {
