@@ -23,6 +23,7 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.card__image');
+
     this._setEventListeners();
 
     this._element.querySelector('.card__title').textContent = this._name;
@@ -31,16 +32,33 @@ export default class Card {
     return this._element;
   }
 
+  // поставить или убрать лайк
+  _toggleLike(evt) {
+    evt.target.classList.toggle('card__button-like_active');
+  }
+
+  // удалить карточку
+  _deleteCard() {
+    this._element.remove();
+    // очистка ссылки на DOM-элемент
+    this._element = null;
+  }
+
+  //открыть карточку
+  _openCard() {
+    this._handleCardClick(this._name, this._link);
+  }
+
   // содержит приватные методы для каждого обработчика;
   _setEventListeners() {
-    this._element.querySelector('.card__button-like').addEventListener('click', () => {
-      this._element.querySelector('.card__button-like').classList.toggle('card__button-like_active');
-    });
+    this._element.querySelector('.card__button-like').addEventListener('click', this._toggleLike);
+
     this._element.querySelector('.card__button-delete').addEventListener('click', () => {
-      this._element.closest('.places__element').remove();
+      this._deleteCard();
     });
+
     this._element.querySelector('.card__image').addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
+      this._openCard();
     });
   }
 

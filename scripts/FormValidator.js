@@ -92,10 +92,10 @@ export default class FormValidator {
 
   // сброс введеных данных после закрытия попапа
   resetForm() {
-    this._formElement.reset();
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
-    })
+    });
+    this._disableButton();
   }
 
 }

@@ -29,7 +29,7 @@ const linkInput = popupAddCard.querySelector('.popup__input_type_link');
 const placesContainer = document.querySelector('.places__container');
 
 // попап с увеличенной картинкой
-const popupOpenImg = document.querySelector('.popup_type_img');
+const popupOpenImage = document.querySelector('.popup_type_img');
 const popupImage = document.querySelector('.popup__image'); // картинка в попапе
 const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
 
@@ -74,7 +74,6 @@ document.querySelectorAll('.popup').forEach((popup) => {
   });
 });
 
-
 // ------------ редактирование профиля ------------ //
 
 // отправка данных редактирования профиля
@@ -103,23 +102,29 @@ profileEditButton.addEventListener('click', () => {
 
 // событие открытия добавления карточки
 profileAddButton.addEventListener('click', () => {
+  // сброс заполненный данных в форме
+  formAddCard.reset();
   validationFormAddCard.resetForm();
   openPopup(popupAddCard);
 });
 
 // добавления новой карточки в контейнер
-function addCard(card) {
-  placesContainer.prepend(card);
+function addCard(card, container) {
+  container.prepend(card);
+}
+
+// создание полностью готовой к вставке карточки
+function createCard(item) {
+  const card = new Card(item, '.card-template', () => {
+    handleCardClick(item);
+  });
+  const cardElement = card.generateCard();
+  addCard(cardElement, placesContainer);
 }
 
 // добавление первых 6 карточек
 initialCards.forEach((item) => {
-  const card = new Card(item, '.card-template', () => {
-    handleCardClick(item.name, item.link);
-    openPopup(popupOpenImg);
-  });
-  const cardElement = card.generateCard();
-  addCard(cardElement);
+  createCard(item);
 });
 
 // добавление пользовательских карточек
@@ -130,12 +135,7 @@ function hundleAddCardSubmit(evt) {
   item.name = titleInput.value;
   item.link = linkInput.value;
 
-  const card = new Card(item, '.card-template', () => {
-    handleCardClick(item.name, item.link);
-    openPopup(popupOpenImg);
-  });
-  const cardElement = card.generateCard();
-  addCard(cardElement);
+  createCard(item);
 
   closePopup(popupAddCard);
 
@@ -143,10 +143,12 @@ function hundleAddCardSubmit(evt) {
   evt.target.reset();
 }
 
-function handleCardClick(name, link) {
-  popupImage.src = link;
-  popupImage.alt = name;
-  popupCaption.textContent = name;
+// откытие увеличенного изображения
+function handleCardClick(item) {
+  popupImage.src = item.link;
+  popupImage.alt = item.name;
+  popupCaption.textContent = item.name;
+  openPopup(popupOpenImage);
 }
 
 // событие добавления карточки
