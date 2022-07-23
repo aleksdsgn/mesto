@@ -119,12 +119,14 @@ function createCard(item) {
     handleCardClick(item);
   });
   const cardElement = card.generateCard();
-  addCard(cardElement, placesContainer);
+  return cardElement;
+  // addCard(cardElement, placesContainer);
 }
 
 // добавление первых 6 карточек
 initialCards.forEach((item) => {
-  createCard(item);
+  const cardElement = createCard(item);
+  addCard(cardElement, placesContainer);
 });
 
 // добавление пользовательских карточек
@@ -135,7 +137,8 @@ function hundleAddCardSubmit(evt) {
   item.name = titleInput.value;
   item.link = linkInput.value;
 
-  createCard(item);
+  const cardElement = createCard(item);
+  addCard(cardElement, placesContainer);
 
   closePopup(popupAddCard);
 

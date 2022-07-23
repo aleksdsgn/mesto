@@ -23,6 +23,7 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.card__image');
+    this._buttonLike = this._element.querySelector('.card__button-like');
 
     this._setEventListeners();
 
@@ -33,8 +34,8 @@ export default class Card {
   }
 
   // поставить или убрать лайк
-  _toggleLike(evt) {
-    evt.target.classList.toggle('card__button-like_active');
+  _toggleLike() {
+    this._buttonLike.classList.toggle('card__button-like_active');
   }
 
   // удалить карточку
@@ -51,7 +52,9 @@ export default class Card {
 
   // содержит приватные методы для каждого обработчика;
   _setEventListeners() {
-    this._element.querySelector('.card__button-like').addEventListener('click', this._toggleLike);
+    this._buttonLike.addEventListener('click', () => {
+      this._toggleLike();
+    });
 
     this._element.querySelector('.card__button-delete').addEventListener('click', () => {
       this._deleteCard();
