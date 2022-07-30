@@ -1,7 +1,10 @@
 import Card from '../components/Card.js';
-import initialCards from '../utils/initialCards.js';
+import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
+import initialCards from '../utils/initialCards.js';
 import selectorsForm from '../utils/selectorsForm.js';
+import { placesContainer } from '../utils/constants.js';
+
 
 // редактирование профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit');
@@ -26,7 +29,8 @@ const titleInput = popupAddCard.querySelector('.popup__input_type_title');
 const linkInput = popupAddCard.querySelector('.popup__input_type_link');
 
 // контейнер для шаблонов карточек
-const placesContainer = document.querySelector('.places__container');
+// const placesContainer = document.querySelector('.places__container');
+// const placesContainer = '.places__container';
 
 // попап с увеличенной картинкой
 const popupOpenImage = document.querySelector('.popup_type_img');
@@ -109,11 +113,14 @@ profileAddButton.addEventListener('click', () => {
 });
 
 // добавления новой карточки в контейнер
+/* ------------
 function addCard(card, container) {
   container.prepend(card);
 }
+--------------- */
 
 // создание полностью готовой к вставке карточки
+/* ------------
 function createCard(item) {
   const card = new Card(item, '.card-template', () => {
     handleCardClick(item);
@@ -122,12 +129,29 @@ function createCard(item) {
   return cardElement;
   // addCard(cardElement, placesContainer);
 }
+--------------- */
 
 // добавление первых 6 карточек
+/* ------------
 initialCards.forEach((item) => {
   const cardElement = createCard(item);
   addCard(cardElement, placesContainer);
 });
+--------------- */
+const initialList = new Section({
+  items: initialCards,
+  renderer: (cardItem) => {
+    const card = new Card(cardItem, '.card-template', () => {
+      handleCardClick(cardItem);
+    });
+
+    const cardElement = card.generateCard();
+    initialList.addItem(cardElement);
+  }
+},
+placesContainer);
+
+initialList.renderItems();
 
 // добавление пользовательских карточек
 function hundleAddCardSubmit(evt) {
