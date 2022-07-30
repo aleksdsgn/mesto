@@ -1,7 +1,7 @@
-import Card from './Card.js';
-import initialCards from './initialCards.js';
-import FormValidator from './FormValidator.js';
-import selectorsForm from './selectorsForm.js';
+import Card from '../components/Card.js';
+import initialCards from '../utils/initialCards.js';
+import FormValidator from '../components/FormValidator.js';
+import selectorsForm from '../utils/selectorsForm.js';
 
 // редактирование профиля
 const profileEditButton = document.querySelector('.profile__button_type_edit');
