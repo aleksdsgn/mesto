@@ -2,6 +2,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import FormValidator from '../components/FormValidator.js';
 import initialCards from '../utils/initialCards.js';
 import selectorsForm from '../utils/selectorsForm.js';
@@ -37,6 +38,7 @@ const formAddCard = document.forms.place;
 // const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
 
 // ------------ попапы ------------ //
+/*
 const popupProfile = new Popup(popupEditProfile);
 popupProfile.setEventListeners();
 
@@ -45,6 +47,13 @@ popupNewCard.setEventListeners();
 
 const popupImage = new PopupWithImage(popupOpenImage);
 popupImage.setEventListeners();
+*/
+
+const popupProfile = new PopupWithForm(popupEditProfile);
+
+const popupNewCard = new PopupWithForm(popupAddCard);
+
+const popupImage = new PopupWithImage(popupOpenImage);
 
 // ------------ валидация форм ------------ //
 const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
