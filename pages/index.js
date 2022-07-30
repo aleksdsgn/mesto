@@ -1,6 +1,7 @@
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import FormValidator from '../components/FormValidator.js';
 import initialCards from '../utils/initialCards.js';
 import selectorsForm from '../utils/selectorsForm.js';
@@ -36,8 +37,10 @@ const popupCaption = document.querySelector('.popup__caption'); // подпис�
 
 // ------------ попапы ------------ //
 const popupProfile = new Popup(popupEditProfile);
-const popupNewCard = new Popup(popupAddCard);
+popupProfile.setEventListeners();
 
+const popupNewCard = new Popup(popupAddCard);
+popupNewCard.setEventListeners();
 
 // ------------ валидация форм ------------ //
 const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
