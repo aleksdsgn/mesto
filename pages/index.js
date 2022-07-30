@@ -8,7 +8,8 @@ import selectorsForm from '../utils/selectorsForm.js';
 import {
   placesContainer,
   popupEditProfile,
-  popupAddCard
+  popupAddCard,
+  popupOpenImage
 } from '../utils/constants.js';
 
 
@@ -31,9 +32,9 @@ const formAddCard = document.forms.place;
 // const placesContainer = document.querySelector('.places__container');
 // const placesContainer = '.places__container';
 // попап с увеличенной картинкой
-const popupOpenImage = document.querySelector('.popup_type_img');
-const popupImage = document.querySelector('.popup__image'); // картинка в попапе
-const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
+// const popupOpenImage = document.querySelector('.popup_type_img');
+// const popupImage = document.querySelector('.popup__image'); // картинка в попапе
+// const popupCaption = document.querySelector('.popup__caption'); // подпись к картинке в попапе
 
 // ------------ попапы ------------ //
 const popupProfile = new Popup(popupEditProfile);
@@ -41,6 +42,9 @@ popupProfile.setEventListeners();
 
 const popupNewCard = new Popup(popupAddCard);
 popupNewCard.setEventListeners();
+
+const popupImage = new PopupWithImage(popupOpenImage);
+popupImage.setEventListeners();
 
 // ------------ валидация форм ------------ //
 const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
@@ -179,7 +183,7 @@ function hundleAddCardSubmit(evt) {
   // очищаем поля формы
   evt.target.reset();
 }
-
+/*
 // откытие увеличенного изображения
 function handleCardClick(item) {
   popupImage.src = item.link;
@@ -187,6 +191,10 @@ function handleCardClick(item) {
   popupCaption.textContent = item.name;
   openPopup(popupOpenImage);
 }
-
+*/
+// откытие увеличенного изображения
+const handleCardClick = (item) => {
+  popupImage.open(item);
+}
 // событие добавления карточки
 // popupAddCard.addEventListener('submit', hundleAddCardSubmit);
