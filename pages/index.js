@@ -49,15 +49,15 @@ validationFormAddCard.enableValidation();
 // ------------ работа с попапами ------------ //
 
 // открытие всех попапов
-function openPopup(popup) {
-  // ----- popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupOnEsc);
-}
+// function openPopup(popup) {
+//   ----- popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', closePopupOnEsc);
+// }
 // закрытие всех попапов
-function closePopup(popup) {
-  // ----- popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupOnEsc);
-}
+// function closePopup(popup) {
+//   ----- popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closePopupOnEsc);
+// }
 
 // закрытие всех попапов по клавише Escape
 /*
