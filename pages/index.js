@@ -50,10 +50,13 @@ popupImage.setEventListeners();
 */
 
 const popupProfile = new PopupWithForm(popupEditProfile);
+popupProfile.setEventListeners();
 
-const popupNewCard = new PopupWithForm(popupAddCard);
+const popupNewCard = new PopupWithForm(popupAddCard, );
+popupNewCard.setEventListeners();
 
 const popupImage = new PopupWithImage(popupOpenImage);
+popupImage.setEventListeners();
 
 // ------------ валидация форм ------------ //
 const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
@@ -115,9 +118,9 @@ function handleProfileFormSubmit(e) {
 profileEditButton.addEventListener('click', () => {
   validationFormEditProfile.resetForm();
 
-  // вывод ранее написаного
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  // // вывод ранее написаного
+  // nameInput.value = profileName.textContent;
+  // jobInput.value = profileJob.textContent;
 
   // openPopup(popupEditProfile);
   popupProfile.open();
@@ -128,7 +131,7 @@ profileEditButton.addEventListener('click', () => {
 // событие открытия добавления карточки
 profileAddButton.addEventListener('click', () => {
   // сброс заполненный данных в форме
-  formAddCard.reset();
+  // formAddCard.reset();
   validationFormAddCard.resetForm();
   // openPopup(popupAddCard);
   popupNewCard.open();
@@ -176,6 +179,7 @@ placesContainer);
 initialList.renderItems();
 
 // добавление пользовательских карточек
+/*
 function hundleAddCardSubmit(evt) {
   evt.preventDefault();
 
@@ -192,6 +196,7 @@ function hundleAddCardSubmit(evt) {
   // очищаем поля формы
   evt.target.reset();
 }
+*/
 /*
 // откытие увеличенного изображения
 function handleCardClick(item) {
