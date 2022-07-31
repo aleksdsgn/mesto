@@ -4,8 +4,6 @@ export default class UserInfo {
   constructor({ nameSelector, infoSelector }) {
     this._name = document.querySelector(nameSelector);
     this._info = document.querySelector(infoSelector);
-    // this._profileTitle = document.querySelector('.profile__title');
-    // this._profileSubtitle = document.querySelector('.profile__subtitle');
   }
 
   // Содержит публичный метод getUserInfo, который возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
