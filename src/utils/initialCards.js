@@ -1,27 +1,34 @@
 // массив первых шесть карточек которые появляются при загрузке страницы
+import cadiniMisurina from '../images/card__cadini-misurina.jpg';
+import fallsSriLanka from '../images/card__diyaluma-falls-sri-lanka.jpg';
+import gosauseenAustria from '../images/card__gosauseen-austria.jpg';
+import kretaGriechenland from '../images/card__kreta-griechenland.jpg';
+import ouarglaAlgeria from '../images/card__ouargla-algeria.jpg';
+import siwaEgypt from '../images/card__siwa-egypt.jpg';
+
 export default [
   {
     name: 'Кадини Мизурина',
-    link: './images/card__cadini-misurina.jpg'
+    link: cadiniMisurina
   },
   {
     name: 'Водопад Диялума, Шри-Ланка',
-    link: './images/card__diyaluma-falls-sri-lanka.jpg'
+    link: fallsSriLanka
   },
   {
     name: 'Озеро Гозаузеен, Австрия',
-    link: './images/card__gosauseen-austria.jpg'
+    link: gosauseenAustria
   },
   {
     name: 'о. Крит, Греция',
-    link: './images/card__kreta-griechenland.jpg'
+    link: kretaGriechenland
   },
   {
     name: 'г. Уаргла, Алжир',
-    link: './images/card__ouargla-algeria.jpg'
+    link: ouarglaAlgeria
   },
   {
     name: 'Сива, Египет',
-    link: './images/card__siwa-egypt.jpg'
+    link: siwaEgypt
   }
 ];
