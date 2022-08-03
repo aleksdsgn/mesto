@@ -5,15 +5,21 @@ export default class FormValidator {
   constructor(setting, formElement) {
     this._setting = setting;
     this._formElement = formElement;
-    this._inputList = Array.from(this._formElement.querySelectorAll(this._setting.inputSelector));
-    this._buttonElement = this._formElement.querySelector(this._setting.submitButtonSelector);
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._setting.inputSelector)
+    );
+    this._buttonElement = this._formElement.querySelector(
+      this._setting.submitButtonSelector
+    );
   }
 
   // имеет приватные методы, которые обрабатывают форму: проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики;
   // показать ошибку
   _showInputError(inputElement, errorMessage) {
     // !!! может объявить это в контструкторе
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
     inputElement.classList.add(this._setting.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._setting.errorClass);
@@ -22,10 +28,12 @@ export default class FormValidator {
   // спрятать ошибку
   _hideInputError(inputElement) {
     // !!! может объявить это в контструкторе
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    const errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
     inputElement.classList.remove(this._setting.inputErrorClass);
     errorElement.classList.remove(this._setting.errorClass);
-    errorElement.textContent = '';
+    errorElement.textContent = "";
   }
 
   // проверка на валидность
@@ -47,13 +55,13 @@ export default class FormValidator {
   // отключить кнопку
   _disableButton() {
     this._buttonElement.classList.add(this._setting.inactiveButtonClass);
-    this._buttonElement.setAttribute('disabled', true);
+    this._buttonElement.setAttribute("disabled", true);
   }
 
   // включить кнопку
   _enableButton() {
     this._buttonElement.classList.remove(this._setting.inactiveButtonClass);
-    this._buttonElement.removeAttribute('disabled');
+    this._buttonElement.removeAttribute("disabled");
   }
 
   // поведение кнопки сабмита если есть невалидный инпут
@@ -71,7 +79,7 @@ export default class FormValidator {
     this._toggleButtonState();
 
     this._inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
+      inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
 
         // чтобы проверять при изменении любого из полей
@@ -83,7 +91,7 @@ export default class FormValidator {
   // имеет публичный метод enableValidation, который включает валидацию формы.
   // валидация всех форм
   enableValidation() {
-    this._formElement.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault;
     });
 
@@ -97,5 +105,4 @@ export default class FormValidator {
     });
     this._disableButton();
   }
-
 }

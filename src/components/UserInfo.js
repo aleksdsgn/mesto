@@ -10,8 +10,8 @@ export default class UserInfo {
   getUserInfo() {
     const userInfoData = {
       name: this._name.textContent,
-      info: this._info.textContent
-    }
+      info: this._info.textContent,
+    };
     return userInfoData;
   }
 

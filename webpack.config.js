@@ -1,63 +1,79 @@
 // утилита, которая превращает относительный путь в абсолютный
-const path = require('path'); // подключаем path к конфигу вебпак
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path"); // подключаем path к конфигу вебпак
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // module.exports — это синтаксис экспорта в Node.js
 module.exports = {
-  entry: { main: './src/pages/index.js' },
+  entry: { main: "./src/pages/index.js" },
   // Это итоговый файл, куда «Вебпак» сложит весь js-код
   output: {
     // путь к точке выхода
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, "dist"),
     // имя файла, куда «Вебпак» положит код
-    filename: 'main.js',
-        // свойство для обновления путей внутри CSS- и HTML-файлов
-        publicPath: ''
+    filename: "main.js",
+    // свойство для обновления путей внутри CSS- и HTML-файлов
+    publicPath: "",
+    // assetModuleFilename: 'images/[hash][ext][query]'
   },
-  mode: 'development', // добавили режим разработчика
+  mode: "development", // добавили режим разработчика
   devServer: {
-    static: path.resolve(__dirname, './dist'), // путь, куда "смотрит" режим разработчика
+    static: path.resolve(__dirname, "./dist"), // путь, куда "смотрит" режим разработчика
     compress: true, // это ускорит загрузку в режиме разработки
     port: 8080, // порт, чтобы открывать сайт по адресу localhost:8080, но можно поменять порт
-    open: true // сайт будет открываться сам при запуске npm run dev
+    open: true, // сайт будет открываться сам при запуске npm run dev
   },
   module: {
-    rules: [ // rules — это массив правил
+    rules: [
+      // rules — это массив правил
       // добавим в него объект правил для бабеля
       {
         // регулярное выражение, которое ищет все js файлы
         test: /\.js$/,
         // при обработке этих файлов нужно использовать babel-loader
-        use: 'babel-loader',
+        use: "babel-loader",
         // исключает папку node_modules, файлы в ней обрабатывать не нужно
-        exclude: '/node_modules/'
+        exclude: "/node_modules/",
       },
       // добавили правило для обработки файлов
+      // каждому типу файла - своя директория
       {
         // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
-        type: 'asset/resource'
+        test: /\.(woff(2)?|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[hash][ext][query]'
+        }
+      },
+      {
+        test: /\.(png|svg|jpg|gif|)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[hash][ext][query]'
+        }
       },
       {
         // применять это правило только к CSS-файлам
         test: /\.css$/,
         // при обработке этих файлов нужно использовать
         // MiniCssExtractPlugin.loader и css-loader
-        use: [MiniCssExtractPlugin.loader, {
-          loader: 'css-loader',
-          options: { importLoaders: 1 }
-        },
-        'postcss-loader']
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: { importLoaders: 1 },
+          },
+          "postcss-loader",
+        ],
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html' // путь к файлу index.html
+      template: "./src/index.html", // путь к файлу index.html
     }),
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin() // подключение плагина для объединения файлов
-  ]
-}
+    new MiniCssExtractPlugin(), // подключение плагина для объединения файлов
+  ],
+};

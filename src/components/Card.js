@@ -8,12 +8,11 @@ export default class Card {
     this._handleCardClick = handleCardClick;
   }
 
-   // содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
+  // содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
-      .content
-      .querySelector('.places__element')
+      .content.querySelector(".places__element")
       .cloneNode(true);
 
     return cardElement;
@@ -22,12 +21,12 @@ export default class Card {
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
   generateCard() {
     this._card = this._getTemplate();
-    this._cardImage = this._card.querySelector('.card__image');
-    this._buttonLike = this._card.querySelector('.card__button-like');
+    this._cardImage = this._card.querySelector(".card__image");
+    this._buttonLike = this._card.querySelector(".card__button-like");
 
     this._setEventListeners();
 
-    this._card.querySelector('.card__title').textContent = this._name;
+    this._card.querySelector(".card__title").textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     return this._card;
@@ -35,7 +34,7 @@ export default class Card {
 
   // поставить или убрать лайк
   _toggleLike() {
-    this._buttonLike.classList.toggle('card__button-like_active');
+    this._buttonLike.classList.toggle("card__button-like_active");
   }
 
   // удалить карточку
@@ -52,17 +51,18 @@ export default class Card {
 
   // содержит приватные методы для каждого обработчика;
   _setEventListeners() {
-    this._buttonLike.addEventListener('click', () => {
+    this._buttonLike.addEventListener("click", () => {
       this._toggleLike();
     });
 
-    this._card.querySelector('.card__button-delete').addEventListener('click', () => {
-      this._deleteCard();
-    });
+    this._card
+      .querySelector(".card__button-delete")
+      .addEventListener("click", () => {
+        this._deleteCard();
+      });
 
-    this._cardImage.addEventListener('click', () => {
+    this._cardImage.addEventListener("click", () => {
       this._openCard();
     });
   }
-
 }
