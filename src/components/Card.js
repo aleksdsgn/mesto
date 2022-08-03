@@ -21,16 +21,16 @@ export default class Card {
 
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
   generateCard() {
-    this._element = this._getTemplate();
-    this._cardImage = this._element.querySelector('.card__image');
-    this._buttonLike = this._element.querySelector('.card__button-like');
+    this._card = this._getTemplate();
+    this._cardImage = this._card.querySelector('.card__image');
+    this._buttonLike = this._card.querySelector('.card__button-like');
 
     this._setEventListeners();
 
-    this._element.querySelector('.card__title').textContent = this._name;
+    this._card.querySelector('.card__title').textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
-    return this._element;
+    return this._card;
   }
 
   // поставить или убрать лайк
@@ -40,9 +40,9 @@ export default class Card {
 
   // удалить карточку
   _deleteCard() {
-    this._element.remove();
+    this._card.remove();
     // очистка ссылки на DOM-элемент
-    this._element = null;
+    this._card = null;
   }
 
   //открыть карточку
@@ -56,11 +56,11 @@ export default class Card {
       this._toggleLike();
     });
 
-    this._element.querySelector('.card__button-delete').addEventListener('click', () => {
+    this._card.querySelector('.card__button-delete').addEventListener('click', () => {
       this._deleteCard();
     });
 
-    this._element.querySelector('.card__image').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._openCard();
     });
   }

@@ -8,23 +8,23 @@ import FormValidator from '../components/FormValidator.js';
 import initialCards from '../utils/initialCards.js';
 import selectorsForm from '../utils/selectorsForm.js';
 import {
-  profileEditButton,
+  buttonEditProfile,
   popupEditProfile,
   formEditProfile,
   profileData,
   nameInput,
   infoInput,
-  profileAddButton,
+  ButtonAddCard,
   popupAddCard,
   formAddCard,
-  placesContainer,
+  cardsContainer,
   popupOpenImage
 } from '../utils/constants.js';
 
 
 // ----------\/ редактирование профиля \/------------ //
 
-const handlerSubmitFormProfile = (userInfoData) => {
+const handleSubmitFormProfile = (userInfoData) => {
   newUserInfo.setUserInfo(userInfoData);
   popupProfile.close();
 }
@@ -32,19 +32,21 @@ const handlerSubmitFormProfile = (userInfoData) => {
 const validationFormEditProfile = new FormValidator(selectorsForm, formEditProfile);
 validationFormEditProfile.enableValidation();
 
-const popupProfile = new PopupWithForm(popupEditProfile, handlerSubmitFormProfile);
+const popupProfile = new PopupWithForm(popupEditProfile, handleSubmitFormProfile);
 popupProfile.setEventListeners();
 
 const newUserInfo = new UserInfo(profileData);
 
-profileEditButton.addEventListener('click', () => {
+// действия при нажатии кнопки редактирования профиля
+const handleButtonEditProfile = () => {
   validationFormEditProfile.resetForm();
-
   nameInput.value = newUserInfo.getUserInfo().name;
   infoInput.value = newUserInfo.getUserInfo().info;
-
   popupProfile.open();
-});
+}
+
+// слушатель кнопки редактирования профиля
+buttonEditProfile.addEventListener('click', handleButtonEditProfile);
 
 
 // ----------\/ добавление первых 6 карточек \/------------ //
@@ -62,14 +64,14 @@ const initialList = new Section({
     initialList.addItem(cardElement);
   }
 },
-placesContainer);
+cardsContainer);
 
 initialList.renderItems();
 
 
 // ----------\/ добавление новой карточки \/------------ //
 
-const handlerSubmitFormNewCard = (cardItem) => {
+const handleSubmitFormNewCard = (cardItem) => {
   const card = new Card(
     cardItem,
     '.card-template',
@@ -86,13 +88,17 @@ const handlerSubmitFormNewCard = (cardItem) => {
 const validationFormAddCard = new FormValidator(selectorsForm, formAddCard);
 validationFormAddCard.enableValidation();
 
-const popupNewCard = new PopupWithForm(popupAddCard, handlerSubmitFormNewCard);
+const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
 popupNewCard.setEventListeners();
 
-profileAddButton.addEventListener('click', () => {
+// действия при нажатии кнопки добавления карточки
+const handleButtonAddCard = () => {
   validationFormAddCard.resetForm();
   popupNewCard.open();
-});
+}
+
+// слушатель кнопки добавления карточки
+ButtonAddCard.addEventListener('click', handleButtonAddCard);
 
 
 // ----------\/ открытая карточка \/------------ //
@@ -100,6 +106,6 @@ profileAddButton.addEventListener('click', () => {
 const popupImage = new PopupWithImage(popupOpenImage);
 popupImage.setEventListeners();
 
-const handleCardClick = (item) => {
-  popupImage.open(item);
+const handleCardClick = (card) => {
+  popupImage.open(card);
 }
