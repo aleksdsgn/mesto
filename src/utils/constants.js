@@ -24,7 +24,7 @@ export const infoInput = document.querySelector(".popup__input_type_info");
 // ----------\/ добавление новой карточки \/------------ //
 
 // кнопка открытия попапа для добавления новой карточки
-export const ButtonAddCard = document.querySelector(
+export const buttonAddCard = document.querySelector(
   ".profile__button_type_add"
 );
 

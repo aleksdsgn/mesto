@@ -13,10 +13,10 @@ export default class FormValidator {
     );
   }
 
-  // имеет приватные методы, которые обрабатывают форму: проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики;
+  // имеет приватные методы, которые обрабатывают форму: проверяют валидность поля,
+  // изменяют состояние кнопки сабмита, устанавливают все обработчики;
   // показать ошибку
   _showInputError(inputElement, errorMessage) {
-    // !!! может объявить это в контструкторе
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
@@ -27,7 +27,6 @@ export default class FormValidator {
 
   // спрятать ошибку
   _hideInputError(inputElement) {
-    // !!! может объявить это в контструкторе
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
@@ -55,7 +54,7 @@ export default class FormValidator {
   // отключить кнопку
   _disableButton() {
     this._buttonElement.classList.add(this._setting.inactiveButtonClass);
-    this._buttonElement.setAttribute("disabled", true);
+    this._buttonElement.disabled = true;
   }
 
   // включить кнопку

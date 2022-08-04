@@ -14,7 +14,7 @@ import {
   profileData,
   nameInput,
   infoInput,
-  ButtonAddCard,
+  buttonAddCard,
   popupAddCard,
   formAddCard,
   cardsContainer,
@@ -43,7 +43,7 @@ popupProfile.setEventListeners();
 const newUserInfo = new UserInfo(profileData);
 
 // действия при нажатии кнопки редактирования профиля
-const handleButtonEditProfile = () => {
+const handleClickButtonEditProfile = () => {
   validationFormEditProfile.resetForm();
   nameInput.value = newUserInfo.getUserInfo().name;
   infoInput.value = newUserInfo.getUserInfo().info;
@@ -53,19 +53,20 @@ const handleButtonEditProfile = () => {
 // ----------\/ карточки мест \/------------ //
 
 // создание карточки
-const createCard = (cardItem, cardSelector, handleClick) => {
-  const card = new Card(cardItem, cardSelector, handleClick);
+const createCard = (cardItem) => {
+  const card = new Card(cardItem, ".card-template", () => {
+    handleCardClick(cardItem);
+  });
   const cardElement = card.generateCard();
   initialList.addItem(cardElement);
 };
+
 // добавление первых 6 карточек
 const initialList = new Section(
   {
     items: initialCards,
     renderer: (cardItem) => {
-      createCard(cardItem, ".card-template", () => {
-        handleCardClick(cardItem);
-      });
+      createCard(cardItem);
     },
   },
   cardsContainer
@@ -75,9 +76,7 @@ initialList.renderItems();
 
 // добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
-  createCard(cardItem, ".card-template", () => {
-    handleCardClick(cardItem);
-  });
+  createCard(cardItem);
   popupNewCard.close();
 };
 
@@ -88,7 +87,7 @@ const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
 popupNewCard.setEventListeners();
 
 // действия при нажатии кнопки добавления карточки
-const handleButtonAddCard = () => {
+const handleClickButtonAddCard = () => {
   validationFormAddCard.resetForm();
   popupNewCard.open();
 };
@@ -105,7 +104,7 @@ const handleCardClick = (card) => {
 // ----------\/ слушатели \/------------ //
 
 // слушатель кнопки редактирования профиля
-buttonEditProfile.addEventListener("click", handleButtonEditProfile);
+buttonEditProfile.addEventListener("click", handleClickButtonEditProfile);
 
 // слушатель кнопки добавления карточки
-ButtonAddCard.addEventListener("click", handleButtonAddCard);
+buttonAddCard.addEventListener("click", handleClickButtonAddCard);
