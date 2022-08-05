@@ -60,7 +60,7 @@ export default class FormValidator {
   // включить кнопку
   _enableButton() {
     this._buttonElement.classList.remove(this._setting.inactiveButtonClass);
-    this._buttonElement.removeAttribute("disabled");
+    this._buttonElement.disabled = false;
   }
 
   // поведение кнопки сабмита если есть невалидный инпут
