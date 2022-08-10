@@ -17,6 +17,7 @@ module.exports = {
     publicPath: "",
     // assetModuleFilename: 'images/[hash][ext][query]'
   },
+  devtool: 'inline-source-map', // показывает ошибки в исходных файлах
   mode: "development", // добавили режим разработчика
   devServer: {
     static: path.resolve(__dirname, "./dist"), // путь, куда "смотрит" режим разработчика
