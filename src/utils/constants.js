@@ -15,6 +15,7 @@ export const formEditProfile = document.forms.profile;
 export const profileData = {
   nameSelector: ".profile__title",
   aboutSelector: ".profile__subtitle",
+  avatarSelector: ".profile__avatar"
 };
 
 // селекторы инпутов в форме редактирования профиля

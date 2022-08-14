@@ -6,7 +6,8 @@ export default class UserInfo {
     this._avatar = document.querySelector(avatarSelector);
   }
 
-  // Содержит публичный метод getUserInfo, который возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
+  // метод возвращает объект с данными пользователя.
+  // данные пользователя подставляются в форму при открытии.
   getUserInfo() {
     const userInfoData = {
       name: this._name.textContent,
@@ -16,13 +17,14 @@ export default class UserInfo {
   }
 
   // принимает новые данные пользователя и добавляет их на страницу.
-  setUserInfo({ name, about }) {
+  setUserInfo({ name, about, avatar }) {
     this._name.textContent = name;
     this._about.textContent = about;
+    this._avatar.src = avatar;
   }
 
   // принимает ссылку на аватар и добавляет их на страницу
-  setUserAvatar({ avatar}) {
-    this._avatar.src = avatar;
-  }
+  // setUserAvatar({ avatar}) {
+  //   this._avatar.src = avatar;
+  // }
 }
