@@ -14,12 +14,12 @@ export const formEditProfile = document.forms.profile;
 // селекторы отображаемых данных профиля
 export const profileData = {
   nameSelector: ".profile__title",
-  infoSelector: ".profile__subtitle",
+  aboutSelector: ".profile__subtitle",
 };
 
 // селекторы инпутов в форме редактирования профиля
 export const nameInput = document.querySelector(".popup__input_type_name");
-export const infoInput = document.querySelector(".popup__input_type_info");
+export const aboutInput = document.querySelector(".popup__input_type_about");
 
 // ----------\/ добавление новой карточки \/------------ //
 

@@ -1,11 +1,13 @@
 import "./index.css";
+import apiConfig from "../utils/apiConfig.js";
+import Api from "../components/Api.js"
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import initialCards from "../utils/initialCards.js";
+// import initialCards from "../utils/initialCards.js";
 import selectorsForm from "../utils/selectorsForm.js";
 import {
   buttonEditProfile,
@@ -13,7 +15,7 @@ import {
   formEditProfile,
   profileData,
   nameInput,
-  infoInput,
+  aboutInput,
   buttonAddCard,
   popupAddCard,
   formAddCard,
@@ -21,8 +23,23 @@ import {
   popupOpenImage,
 } from "../utils/constants.js";
 
-// ----------\/ редактирование профиля \/------------ //
+const api = new Api(apiConfig);
 
+// ----------\/ работа с профилем \/------------ //
+
+const newUserInfo = new UserInfo(profileData);
+
+// загрузка информации профиля с сервера
+api.getProfileInfo()
+  .then((data) => {
+    console.log(data);
+    newUserInfo.setUserInfo(data);
+  })
+    .catch((err) => {
+    console.log(err);
+  });
+
+// обработка сабмита в форме профиля
 const handleSubmitFormProfile = (userInfoData) => {
   newUserInfo.setUserInfo(userInfoData);
   popupProfile.close();
@@ -40,13 +57,11 @@ const popupProfile = new PopupWithForm(
 );
 popupProfile.setEventListeners();
 
-const newUserInfo = new UserInfo(profileData);
-
 // действия при нажатии кнопки редактирования профиля
 const handleClickButtonEditProfile = () => {
   validationFormEditProfile.resetForm();
   nameInput.value = newUserInfo.getUserInfo().name;
-  infoInput.value = newUserInfo.getUserInfo().info;
+  aboutInput.value = newUserInfo.getUserInfo().about;
   popupProfile.open();
 };
 
@@ -58,21 +73,29 @@ const createCard = (cardItem) => {
     handleCardClick(cardItem);
   });
   const cardElement = card.generateCard();
-  initialList.addItem(cardElement);
+
+  return cardElement;
+  // initialList.addItem(cardElement);
 };
 
-// добавление первых 6 карточек
-const initialList = new Section(
-  {
-    items: initialCards,
-    renderer: (cardItem) => {
-      createCard(cardItem);
-    },
-  },
-  cardsContainer
-);
-
-initialList.renderItems();
+// загрузка карточек с сервера
+api
+  .getInitialCards()
+  .then((data) => {
+    const initialListCards = new Section(
+      {
+        items: data,
+        renderer: (cardItem) => {
+          initialListCards.addItem(createCard(cardItem));
+        },
+      },
+      cardsContainer
+    );
+    initialListCards.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
