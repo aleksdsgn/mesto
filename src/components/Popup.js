@@ -3,7 +3,6 @@ export default class Popup {
   // Принимает в конструктор единственный параметр — селектор попапа
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    // подглядел, но не очень понял почему именно так
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 

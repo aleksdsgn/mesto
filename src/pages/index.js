@@ -82,7 +82,11 @@ const createCard = (cardItem) => {
     cardItem,
     ".card-template",
     () => {
-    handleCardClick(cardItem);
+      handleCardClick(cardItem);
+    },
+    () => {
+      // popupDeleteCard.setDataCard(card);
+      // popupDeleteCard.open();
     },
     newUserInfo.id,
     likeCard);
@@ -159,6 +163,8 @@ validationFormAddCard.enableValidation();
 
 const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
 popupNewCard.setEventListeners();
+
+// const popupNewCard = new
 
 // действия при нажатии кнопки добавления карточки
 const handleClickButtonAddCard = () => {

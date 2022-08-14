@@ -1,7 +1,7 @@
 // класс, который создаёт карточку с текстом и ссылкой на изображение
 export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента;
-  constructor(cardData, cardSelector, handleCardClick, userId, handleLikeCardClick) {
+  constructor(cardData, cardSelector, handleCardClick, handleDeleteCardClick, userId, handleLikeCardClick) {
     this._name = cardData.name;
     this._link = cardData.link;
     this.likes = cardData.likes;
@@ -9,6 +9,7 @@ export default class Card {
     this.id = cardData._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCardClick = handleDeleteCardClick;
     this._userId = userId;
     this._handleLikeCardClick = handleLikeCardClick;
     this.isLiked = cardData.likes.some(user => user._id === this._userId);
@@ -29,8 +30,19 @@ export default class Card {
     this._card = this._getTemplate();
     this._cardImage = this._card.querySelector(".card__image");
     this._buttonLike = this._card.querySelector(".card__button-like");
+    this._buttonDelete = this._card.querySelector(".card__button-delete")
     this._likesCounter = this._card.querySelector(".card__likes-counter");
-    if (this.isLiked) this.addLike();
+
+    if (this.isLiked) {
+      this.addLike();
+    }
+
+    if (this._idOwner != this._userId) {
+      this._buttonDelete.remove();
+      this._deleteIsValid = false;
+    } else {
+      this._deleteIsValid = true;
+    }
 
     this._setEventListeners();
 
@@ -48,8 +60,8 @@ export default class Card {
     this.isLiked = true;
   }
 
-   // убрать лайк
-   removeLike() {
+  // убрать лайк
+  removeLike() {
     this._buttonLike.classList.remove("card__button-like_active");
     this.isLiked = false;
   }
@@ -65,16 +77,16 @@ export default class Card {
   }
 
   // удалить карточку
-  _deleteCard() {
+  deleteCard() {
     this._card.remove();
     // очистка ссылки на DOM-элемент
     this._card = null;
   }
 
   //открыть карточку
-  _openCard() {
-    this._handleCardClick(this._name, this._link);
-  }
+  // _openCard() {
+  //   this._handleCardClick(this._name, this._link);
+  // }
 
   // содержит приватные методы для каждого обработчика;
   _setEventListeners() {
@@ -82,14 +94,18 @@ export default class Card {
       this._handleLikeCardClick(this);
     });
 
-    this._card
-      .querySelector(".card__button-delete")
-      .addEventListener("click", () => {
-        this._deleteCard();
+    if (this._deleteIsValid) {
+      this._buttonDelete.addEventListener("click", () => {
+        // this._deleteCard();
+        this._handleDeleteCardClick;
+        // this._handleDeleteCardClick(this);
       });
+    }
 
     this._cardImage.addEventListener("click", () => {
-      this._openCard();
+      // this._openCard();
+      this._handleCardClick;
+      // this._handleCardClick(this);
     });
   }
 }
