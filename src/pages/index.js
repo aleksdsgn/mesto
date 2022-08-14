@@ -106,10 +106,20 @@ api
     console.log(err);
   });
 
-// добавление новой карточки
+// обработка сабмита в форме добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
-  createCard(cardItem);
-  popupNewCard.close();
+  api.createCard(cardItem)
+  .then((data) => {
+    // console.log(data);
+    createCard(data);
+    // api.getInitialCards();
+    popupNewCard.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  // createCard(cardItem);
+  // popupNewCard.close();
 };
 
 const validationFormAddCard = new FormValidator(selectorsForm, formAddCard);
