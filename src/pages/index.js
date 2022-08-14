@@ -32,7 +32,7 @@ const newUserInfo = new UserInfo(profileData);
 // загрузка информации профиля с сервера
 api.getProfileInfo()
   .then((data) => {
-    console.log(data);
+    // console.log(data);
     newUserInfo.setUserInfo(data);
   })
     .catch((err) => {
@@ -41,8 +41,17 @@ api.getProfileInfo()
 
 // обработка сабмита в форме профиля
 const handleSubmitFormProfile = (userInfoData) => {
-  newUserInfo.setUserInfo(userInfoData);
-  popupProfile.close();
+  api.setProfileInfo(userInfoData)
+  .then((data) => {
+    // console.log(data);
+    newUserInfo.setUserInfo(data);
+    popupProfile.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  // newUserInfo.setUserInfo(userInfoData);
+  // popupProfile.close();
 };
 
 const validationFormEditProfile = new FormValidator(

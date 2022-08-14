@@ -16,18 +16,30 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
+  // получить данные профиля с сервера
   getProfileInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers
     }).then(this._handleResponse);
   }
 
+  // отправить отредактированные данные профиля на сервер
+  setProfileInfo(data) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    }).then(this._handleResponse);
+  }
+
+  // получить карточки с сервера
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers
     }).then(this._handleResponse);
   }
 
+  // создание и загрузка новой карточки на сервер
   createCard(data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
@@ -36,6 +48,7 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
+  // ужаление новой карточки с сервера
   deleteCardById(id) {
     return fetch(`${this._url}/cards/_${id}`, {
       method: 'DELETE',
