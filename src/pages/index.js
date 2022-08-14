@@ -78,14 +78,46 @@ const handleClickButtonEditProfile = () => {
 
 // создание карточки
 const createCard = (cardItem) => {
-  const card = new Card(cardItem, ".card-template", () => {
+  const card = new Card(
+    cardItem,
+    ".card-template",
+    () => {
     handleCardClick(cardItem);
-  });
-  const cardElement = card.generateCard();
+    },
+    newUserInfo.id,
+    likeCard);
+    const cardElement = card.generateCard();
+    // card.isLiked();
 
-  return cardElement;
-  // initialList.addItem(cardElement);
+    return cardElement;
+    // initialList.addItem(cardElement);
 };
+
+// лайк карточки
+const likeCard = (card) => {
+  if (!card.isLiked) {
+    api.addLike(card.id)
+    .then((data)=>{
+      card.setLikes(data.likes);
+      card.addLike();
+      card.renderLikeCount();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  } else {
+    api.deleteLike(card.id)
+    .then((data)=>{
+      card.setLikes(data.likes);
+      card.removeLike();
+      card.renderLikeCount();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+}
+
 
 // загрузка карточек с сервера
 api

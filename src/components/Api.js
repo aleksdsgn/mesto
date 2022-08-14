@@ -48,9 +48,23 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  // ужаление новой карточки с сервера
+  // удаление карточки с сервера
   deleteCardById(id) {
     return fetch(`${this._url}/cards/_${id}`, {
+      method: 'DELETE',
+      headers: this._headers
+    }).then(this._handleResponse);
+  }
+
+  addLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    }).then(this._handleResponse);
+  }
+
+  deleteLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers
     }).then(this._handleResponse);
