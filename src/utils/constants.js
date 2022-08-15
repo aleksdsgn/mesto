@@ -2,7 +2,7 @@
 
 // кнопка открытия попапа для редактирования профиля
 export const buttonEditProfile = document.querySelector(
-  ".profile__button_type_edit"
+  ".profile__button_type_edit-profile-info"
 );
 
 // сам попап редактирование профиля
@@ -26,7 +26,7 @@ export const aboutInput = document.querySelector(".popup__input_type_about");
 
 // кнопка открытия попапа для добавления новой карточки
 export const buttonAddCard = document.querySelector(
-  ".profile__button_type_add"
+  ".profile__button_type_add-card"
 );
 
 // сам попап добавление карточки

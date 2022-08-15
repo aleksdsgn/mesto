@@ -1,4 +1,4 @@
-.profile__button_type_edit {
+.profile__button_type_edit-profile-info {
   width: 24px;
   height: 24px;
   border: 1px solid #fff;
@@ -12,13 +12,13 @@
 }
 
 @media screen and (max-width: 720px) {
-  .profile__button_type_edit {
+  .profile__button_type_edit-profile-info {
     left: calc(100% + 18px);
   }
 }
 
 @media screen and (max-width: 480px) {
-  .profile__button_type_edit {
+  .profile__button_type_edit-profile-info {
     width: 18px;
     height: 18px;
     background-size: 7.5px;
