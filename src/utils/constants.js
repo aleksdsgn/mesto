@@ -42,3 +42,9 @@ export const cardsContainer = ".places__container";
 
 // попап увеличенной картинки
 export const popupOpenImage = ".popup_type_img";
+
+
+// ----------\/ прочее \/------------ //
+
+// попап подтвержения удаления
+export const popupDeleteCard = ".popup_type_delete-card";

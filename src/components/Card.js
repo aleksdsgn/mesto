@@ -97,14 +97,14 @@ export default class Card {
     if (this._deleteIsValid) {
       this._buttonDelete.addEventListener("click", () => {
         // this._deleteCard();
-        this._handleDeleteCardClick;
+        this._handleDeleteCardClick(this);
         // this._handleDeleteCardClick(this);
       });
     }
 
     this._cardImage.addEventListener("click", () => {
       // this._openCard();
-      this._handleCardClick;
+      this._handleCardClick(this);
       // this._handleCardClick(this);
     });
   }

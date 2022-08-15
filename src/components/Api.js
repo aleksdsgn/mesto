@@ -50,7 +50,7 @@ export default class Api {
 
   // удаление карточки с сервера
   deleteCardById(id) {
-    return fetch(`${this._url}/cards/_${id}`, {
+    return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers
     }).then(this._handleResponse);

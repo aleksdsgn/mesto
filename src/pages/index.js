@@ -5,6 +5,7 @@ import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithDelete from "../components/PopupWithDelete.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 // import initialCards from "../utils/initialCards.js";
@@ -21,6 +22,7 @@ import {
   formAddCard,
   cardsContainer,
   popupOpenImage,
+  popupDeleteCard
 } from "../utils/constants.js";
 
 const api = new Api(apiConfig);
@@ -85,8 +87,10 @@ const createCard = (cardItem) => {
       handleCardClick(cardItem);
     },
     () => {
-      // popupDeleteCard.setDataCard(card);
-      // popupDeleteCard.open();
+      console.log("Удаление карточки");
+      popupDelete.setDataCard(card);
+
+      popupDelete.open();
     },
     newUserInfo.id,
     likeCard);
@@ -106,7 +110,7 @@ const likeCard = (card) => {
       card.addLike();
       card.renderLikeCount();
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
   } else {
@@ -116,7 +120,7 @@ const likeCard = (card) => {
       card.removeLike();
       card.renderLikeCount();
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
   }
@@ -171,6 +175,27 @@ const handleClickButtonAddCard = () => {
   validationFormAddCard.resetForm();
   popupNewCard.open();
 };
+
+// ----------\/ удаление карточки \/------------ //
+const handleSubmitDeleteCard = () => {
+  popupDelete.pending('Удаление...');
+  const card = popupDelete.getDataCard();
+  api.deleteCardById(card.id)
+  .then(() => {
+    card.deleteCardById();
+    popupDelete.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    popupDelete.setInitialSubmitCaption();
+  });
+}
+
+const popupDelete = new PopupWithDelete(popupDeleteCard, handleSubmitDeleteCard);
+popupDelete.setEventListeners();
+
 
 // ----------\/ открытая карточка \/------------ //
 
