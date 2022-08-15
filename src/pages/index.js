@@ -5,7 +5,7 @@ import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithDelete from "../components/PopupWithDelete.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 // import initialCards from "../utils/initialCards.js";
@@ -177,6 +177,7 @@ const handleClickButtonAddCard = () => {
 };
 
 // ----------\/ удаление карточки \/------------ //
+
 const handleSubmitDeleteCard = () => {
   popupDelete.pending('Удаление...');
   const card = popupDelete.getDataCard();
@@ -193,7 +194,7 @@ const handleSubmitDeleteCard = () => {
   });
 }
 
-const popupDelete = new PopupWithDelete(popupDeleteCard, handleSubmitDeleteCard);
+const popupDelete = new PopupWithConfirm(popupDeleteCard, handleSubmitDeleteCard);
 popupDelete.setEventListeners();
 
 
