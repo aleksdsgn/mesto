@@ -8,7 +8,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-// import initialCards from "../utils/initialCards.js";
 import selectorsForm from "../utils/selectorsForm.js";
 import {
   buttonEditAvatar,
@@ -32,7 +31,7 @@ const api = new Api(apiConfig);
 
 // ----------\/ работа с профилем \/------------ //
 
-// экземпляр класса для работы с отображаемыми данными пользователя в профиле
+// экземпляр класса для работы с отображаемыми даннымипользователя в профиле
 const newUserInfo = new UserInfo(profileData);
 
 // загрузка информации профиля с сервера
@@ -45,39 +44,7 @@ api.getProfileInfo()
     console.log(err);
   });
 
-// обработка сабмита в форме профиля
-const handleSubmitFormProfile = (userInfoData) => {
-  api.setProfileInfo(userInfoData)
-  .then((data) => {
-    // console.log(data);
-    newUserInfo.setUserInfo(data);
-    popupProfile.close();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-  // newUserInfo.setUserInfo(userInfoData);
-  // popupProfile.close();
-};
-
-
-
-// экземпляр попапа с формой для редактирования информации профиля
-// передаём (селектор попапа, обработчик сабмита формы)
-const popupProfile = new PopupWithForm(
-  popupEditProfile,
-  handleSubmitFormProfile
-);
-popupProfile.setEventListeners();
-
-
-// действия при нажатии кнопки редактирования профиля
-const handleClickButtonEditProfile = () => {
-  validationFormEditProfile.resetForm();
-  nameInput.value = newUserInfo.getUserInfo().name;
-  aboutInput.value = newUserInfo.getUserInfo().about;
-  popupProfile.open();
-};
+// ----------\/ редактирование аватарки \/------------ //
 
 // обработка сабмита в форме с аватаркой
 const handleSubmitFormAvatar = (userInfoData) => {
@@ -107,8 +74,43 @@ popupAvatar.setEventListeners();
 // действия при нажатии кнопки редактирования аватарки
 const handleClickButtonEditAvatar = () => {
   console.log('Хочу сменить аватарку');
+  validationFormAvatar.resetForm();
   popupAvatar.open();
 }
+
+// ----------\/ редактирование текстовой информации \/------------ //
+
+// обработка сабмита в форме профиля
+const handleSubmitFormProfile = (userInfoData) => {
+  api.setProfileInfo(userInfoData)
+  .then((data) => {
+    // console.log(data);
+    newUserInfo.setUserInfo(data);
+    popupProfile.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  // newUserInfo.setUserInfo(userInfoData);
+  // popupProfile.close();
+};
+
+// экземпляр попапа с формой для редактирования информации профиля
+// передаём (селектор попапа, обработчик сабмита формы)
+const popupProfile = new PopupWithForm(
+  popupEditProfile,
+  handleSubmitFormProfile
+);
+popupProfile.setEventListeners();
+
+
+// действия при нажатии кнопки редактирования профиля
+const handleClickButtonEditProfile = () => {
+  validationFormEditProfile.resetForm();
+  nameInput.value = newUserInfo.getUserInfo().name;
+  aboutInput.value = newUserInfo.getUserInfo().about;
+  popupProfile.open();
+};
 
 // ----------\/ карточки мест \/------------ //
 
@@ -196,12 +198,8 @@ const handleSubmitFormNewCard = (cardItem) => {
   // popupNewCard.close();
 };
 
-
-
 const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
 popupNewCard.setEventListeners();
-
-// const popupNewCard = new
 
 // действия при нажатии кнопки добавления карточки
 const handleClickButtonAddCard = () => {
@@ -265,11 +263,11 @@ validationFormAddCard.enableValidation();
 
 // ----------\/ слушатели \/------------ //
 
-// слушатель кнопки редактирования профиля
-buttonEditProfile.addEventListener("click", handleClickButtonEditProfile);
-
 // слушатель кнопки редактирования аватара
 buttonEditAvatar.addEventListener("click", handleClickButtonEditAvatar);
+
+// слушатель кнопки редактирования профиля
+buttonEditProfile.addEventListener("click", handleClickButtonEditProfile);
 
 // слушатель кнопки добавления карточки
 buttonAddCard.addEventListener("click", handleClickButtonAddCard);

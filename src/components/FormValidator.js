@@ -1,37 +1,45 @@
 // класс, который настраивает валидацию полей формы
 export default class FormValidator {
-  // принимает в конструктор объект настроек с селекторами и классами формы;
-  // принимает вторым параметром элемент той формы, которая валидируется;
   constructor(setting, formElement) {
+    // объект настроек с селекторами и классами формы
     this._setting = setting;
+    // элемент той формы, которая валидируется
     this._formElement = formElement;
+    // список инпутов конкретной формы
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._setting.inputSelector)
     );
+    // кнопка сабмита попапа
     this._buttonElement = this._formElement.querySelector(
       this._setting.submitButtonSelector
     );
   }
 
-  // имеет приватные методы, которые обрабатывают форму: проверяют валидность поля,
-  // изменяют состояние кнопки сабмита, устанавливают все обработчики;
-  // показать ошибку
+  // показать ошибку (выделить инпут и отобразить текст ошибки под ним)
   _showInputError(inputElement, errorMessage) {
+    // конкретный span отображающий текст ошибки
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
+    // выделить поле инпута красной полосой
     inputElement.classList.add(this._setting.inputErrorClass);
+    // отобразить сообщение об ошибке в span-блоке
     errorElement.textContent = errorMessage;
+    // добавить класс в котором включена видимость текста об ошибке
     errorElement.classList.add(this._setting.errorClass);
   }
 
   // спрятать ошибку
   _hideInputError(inputElement) {
+    // конкретный span отображающий текст ошибки
     const errorElement = this._formElement.querySelector(
       `.${inputElement.id}-error`
     );
+    // убрать выделение поле инпута красной полосой
     inputElement.classList.remove(this._setting.inputErrorClass);
+    // убрать класс в котором включена видимость текста об ошибке
     errorElement.classList.remove(this._setting.errorClass);
+    // убрать сообщение об ошибке в span-блоке
     errorElement.textContent = "";
   }
 
@@ -87,8 +95,7 @@ export default class FormValidator {
     });
   }
 
-  // имеет публичный метод enableValidation, который включает валидацию формы.
-  // валидация всех форм
+  // включает валидацию формы
   enableValidation() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault;
