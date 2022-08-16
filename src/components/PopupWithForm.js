@@ -8,6 +8,8 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(".popup__form");
     // список всех инпутов в конкретной форме
     this._inputList = this._form.querySelectorAll(".popup__input");
+    this._submitButton = this._form.querySelector('.popup__submit-button');
+    this._initialSubmitCaption = this._submitButton.textContent;
   }
 
   // Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
@@ -34,5 +36,15 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
+  }
+
+  // метод отображающий текст во время загрузки данных
+  waitingLoading(waitingText) {
+    this._submitButton.textContent = waitingText;
+  }
+
+  // установить изначальный текст кнопки
+  setInitialSubmitCaption() {
+    this._submitButton.textContent = this._initialSubmitCaption;
   }
 }

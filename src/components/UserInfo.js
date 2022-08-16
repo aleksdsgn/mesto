@@ -26,6 +26,16 @@ export default class UserInfo {
     this._avatar.src = avatar;
   }
 
+  renderUserInfo ()
+  {
+    this._nameElement.textContent = this._name;
+    this._descriptionElement.textContent = this._description;
+  }
+
+  renderAvatar () {
+    this._avatar.src = this._avatar;
+  }
+
   // принимает ссылку на аватар и добавляет ее на страницу
   // setUserAvatar({ avatar}) {
   //   this._avatar.src = avatar;

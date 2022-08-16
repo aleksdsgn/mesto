@@ -1,3 +1,17 @@
+// ----------\/ изменение аватарки \/------------ //
+
+// кнопка открытия попапа редактирования аватарки
+export const buttonEditAvatar = document.querySelector(
+  ".profile__button_type_edit-profile-avatar"
+);
+
+// попап редактирование аватарки
+export const popupEditAvatar = ".popup_type_edit-avatar";
+
+// форма изменения аватарки
+export const formEditAvatar = document.forms.avatar;
+
+
 // ----------\/ редактирование профиля \/------------ //
 
 // кнопка открытия попапа для редактирования профиля
@@ -5,7 +19,7 @@ export const buttonEditProfile = document.querySelector(
   ".profile__button_type_edit-profile-info"
 );
 
-// сам попап редактирование профиля
+// попап редактирование профиля
 export const popupEditProfile = ".popup_type_edit-profile";
 
 // форма редактирования профиля
@@ -22,6 +36,7 @@ export const profileData = {
 export const nameInput = document.querySelector(".popup__input_type_name");
 export const aboutInput = document.querySelector(".popup__input_type_about");
 
+
 // ----------\/ добавление новой карточки \/------------ //
 
 // кнопка открытия попапа для добавления новой карточки
@@ -37,6 +52,7 @@ export const formAddCard = document.forms.place;
 
 // контейнер для шаблонов карточек
 export const cardsContainer = ".places__container";
+
 
 // ----------\/ открытая карточка \/------------ //
 
