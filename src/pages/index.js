@@ -82,17 +82,20 @@ const handleClickButtonEditAvatar = () => {
 
 // обработка сабмита в форме профиля
 const handleSubmitFormProfile = (userInfoData) => {
+  popupProfile.waitingLoading('Сохранение...');
   api.setProfileInfo(userInfoData)
   .then((data) => {
     // console.log(data);
     newUserInfo.setUserInfo(data);
+    newUserInfo.renderUserInfo();
     popupProfile.close();
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    popupProfile.setInitialSubmitCaption();
   });
-  // newUserInfo.setUserInfo(userInfoData);
-  // popupProfile.close();
 };
 
 // экземпляр попапа с формой для редактирования информации профиля
@@ -184,6 +187,7 @@ api
 
 // обработка сабмита в форме добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
+  popupNewCard.waitingLoading('Сохранение...');
   api.createCard(cardItem)
   .then((data) => {
     // console.log(data);
@@ -193,6 +197,9 @@ const handleSubmitFormNewCard = (cardItem) => {
   })
   .catch((err) => {
     console.log(err);
+  })
+  .finally(() => {
+    popupNewCard.setInitialSubmitCaption();
   });
   // createCard(cardItem);
   // popupNewCard.close();
