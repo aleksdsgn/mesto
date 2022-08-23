@@ -9,10 +9,10 @@ export default class PopupWithForm extends Popup {
     // список всех инпутов в конкретной форме
     this._inputList = this._form.querySelectorAll(".popup__input");
     this._submitButton = this._form.querySelector('.popup__submit-button');
-    this._initialSubmitCaption = this._submitButton.textContent;
+    this._submitButtonText = this._submitButton.textContent;
   }
 
-  // Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
+  // собирает данные всех полей формы в объект
   _getInputValues() {
     // объект с данными всех инпутов
     this._inputsValues = {};
@@ -23,7 +23,8 @@ export default class PopupWithForm extends Popup {
     return this._inputsValues;
   }
 
-  // Перезаписывает родительский метод setEventListeners. Метод setEventListeners класса PopupWithForm должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы.
+  // добавляет обработчик клика по иконке закрытия,
+  // и добавляет обработчик сабмита формы.
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
@@ -38,13 +39,12 @@ export default class PopupWithForm extends Popup {
     this._form.reset();
   }
 
-  // метод отображающий текст во время загрузки данных
-  waitingLoading(waitingText) {
-    this._submitButton.textContent = waitingText;
-  }
-
-  // установить изначальный текст кнопки
-  setInitialSubmitCaption() {
-    this._submitButton.textContent = this._initialSubmitCaption;
+  // Отображение текста в кнопке сабмита во время загрузки данных
+  waitingLoading(isLoading, waitingText) {
+    if (isLoading) {
+      this._submitButton.textContent = waitingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonText;
+    }
   }
 }

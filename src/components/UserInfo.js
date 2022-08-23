@@ -1,17 +1,17 @@
-// отвечает за управление отображением информации о пользователе на странице
+// отображение информации о пользователе на странице
 export default class UserInfo {
   constructor({ nameSelector, aboutSelector, avatarSelector }) {
-    this._name = document.querySelector(nameSelector);
-    this._about = document.querySelector(aboutSelector);
-    this._avatar = document.querySelector(avatarSelector);
+    this._userName = document.querySelector(nameSelector);
+    this._userAbout = document.querySelector(aboutSelector);
+    this._userAvatar = document.querySelector(avatarSelector);
   }
 
   // метод возвращает объект с данными пользователя.
   // данные пользователя подставляются в форму при открытии.
   getUserInfo() {
     const userInfoData = {
-      name: this._name.textContent,
-      about: this._about.textContent,
+      name: this._userName.textContent,
+      about: this._userAbout.textContent,
       id: this.id,
       avatar: this._avatar
     };
@@ -20,24 +20,19 @@ export default class UserInfo {
 
   // принимает новые данные пользователя и добавляет их на страницу.
   setUserInfo({ name, about, _id, avatar }) {
-    this._name.textContent = name;
-    this._about.textContent = about;
+    this._name = name;
+    this._about = about;
     this.id = _id;
-    this._avatar.src = avatar;
+    this._avatar = avatar;
   }
 
   renderUserInfo ()
   {
-    this._nameElement.textContent = this._name;
-    this._descriptionElement.textContent = this._description;
+    this._userName.textContent = this._name;
+    this._userAbout.textContent = this._about;
   }
 
-  renderAvatar () {
-    this._avatar.src = this._avatar;
+  renderUserAvatar () {
+    this._userAvatar.src = this._avatar;
   }
-
-  // принимает ссылку на аватар и добавляет ее на страницу
-  // setUserAvatar({ avatar}) {
-  //   this._avatar.src = avatar;
-  // }
 }

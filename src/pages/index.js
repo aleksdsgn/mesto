@@ -31,35 +31,35 @@ const api = new Api(apiConfig);
 
 // ----------\/ работа с профилем \/------------ //
 
-// экземпляр класса для работы с отображаемыми даннымипользователя в профиле
+// экземпляр класса для работы с данными пользователя в профиле
 const newUserInfo = new UserInfo(profileData);
 
 // загрузка информации профиля с сервера
-api.getProfileInfo()
-  .then((data) => {
-    // console.log(data);
-    newUserInfo.setUserInfo(data);
-  })
-    .catch((err) => {
-    console.log(err);
-  });
+// api.getProfileInfo()
+//   .then((data) => {
+//     // console.log(data);
+//     newUserInfo.setUserInfo(data);
+//   })
+//     .catch((err) => {
+//     console.log(err);
+//   });
 
 // ----------\/ редактирование аватарки \/------------ //
 
 // обработка сабмита в форме с аватаркой
 const handleSubmitFormAvatar = (userInfoData) => {
-  popupAvatar.waitingLoading('Сохранение...');
+  popupAvatar.waitingLoading(true, 'Сохранение...');
   api.editAvatar(userInfoData.link)
   .then((data) => {
     newUserInfo.setUserInfo(data);
-    newUserInfo.renderAvatar();
+    newUserInfo.renderUserAvatar();
     popupAvatar.close();
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    popupAvatar.setInitialSubmitCaption();
+    popupAvatar.waitingLoading(false);
   });
 }
 
@@ -73,7 +73,6 @@ popupAvatar.setEventListeners();
 
 // действия при нажатии кнопки редактирования аватарки
 const handleClickButtonEditAvatar = () => {
-  console.log('Хочу сменить аватарку');
   validationFormAvatar.resetForm();
   popupAvatar.open();
 }
@@ -82,7 +81,7 @@ const handleClickButtonEditAvatar = () => {
 
 // обработка сабмита в форме профиля
 const handleSubmitFormProfile = (userInfoData) => {
-  popupProfile.waitingLoading('Сохранение...');
+  popupProfile.waitingLoading(true, 'Сохранение...');
   api.setProfileInfo(userInfoData)
   .then((data) => {
     // console.log(data);
@@ -94,7 +93,7 @@ const handleSubmitFormProfile = (userInfoData) => {
     console.log(err);
   })
   .finally(() => {
-    popupProfile.setInitialSubmitCaption();
+    popupProfile.waitingLoading(false);
   });
 };
 
@@ -109,14 +108,36 @@ popupProfile.setEventListeners();
 
 // действия при нажатии кнопки редактирования профиля
 const handleClickButtonEditProfile = () => {
+  // очистить форму
   validationFormEditProfile.resetForm();
+  // подставить данные в поля ввода
   nameInput.value = newUserInfo.getUserInfo().name;
   aboutInput.value = newUserInfo.getUserInfo().about;
+  // и только потом открыть готовый попап
   popupProfile.open();
 };
 
 // ----------\/ карточки мест \/------------ //
 
+// идентификатор запрашиваемый с сервера
+let userId;
+
+const initialListCards = new Section((cardItem) => {
+  const idCardCompare = userId === cardItem.owner._id;
+  const idLikeCompare = cardItem.likes.some((like) = > {
+    like._id === userId
+  });
+  initialListCards.addItem((createCard(cardItem.name,
+    cardItem.link,
+    cardItem.likes,
+    cardItem._id,
+    handleDeleteCard,
+    idCardCompare,
+    handleLikeElement,
+    idLikeCompare)))
+}, cardsContainer);
+
+/*
 // создание карточки
 const createCard = (cardItem) => {
   const card = new Card(
@@ -165,6 +186,9 @@ const likeCard = (card) => {
   }
 }
 
+//
+//
+
 
 // загрузка карточек с сервера
 api
@@ -199,12 +223,14 @@ const handleSubmitFormNewCard = (cardItem) => {
     console.log(err);
   })
   .finally(() => {
-    popupNewCard.setInitialSubmitCaption();
+    // popupNewCard.setInitialSubmitCaption();
   });
   // createCard(cardItem);
   // popupNewCard.close();
 };
 
+// экземпляр попапа с формой для добавления новой карточки
+// передаём (селектор попапа, обработчик сабмита формы)
 const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
 popupNewCard.setEventListeners();
 
@@ -214,6 +240,7 @@ const handleClickButtonAddCard = () => {
   popupNewCard.open();
 };
 
+*/
 // ----------\/ удаление карточки \/------------ //
 
 const handleSubmitDeleteCard = () => {
@@ -228,7 +255,7 @@ const handleSubmitDeleteCard = () => {
     console.log(err);
   })
   .finally(() => {
-    popupDelete.setInitialSubmitCaption();
+    // popupDelete.setInitialSubmitCaption();
   });
 }
 
@@ -278,3 +305,22 @@ buttonEditProfile.addEventListener("click", handleClickButtonEditProfile);
 
 // слушатель кнопки добавления карточки
 buttonAddCard.addEventListener("click", handleClickButtonAddCard);
+
+
+Promise.all([
+  // запрос данных о пользователе с сервера
+  api.getProfileInfo(),
+  // запрос всех карточек с сервера
+  api.getInitialCards()
+])
+.then(([userInfo, cards]) => {
+  newUserInfo.setUserInfo(userInfo);
+  newUserInfo.renderUserInfo();
+  newUserInfo.renderUserAvatar();
+  userId = userInfo._id;
+
+  initialListCards.renderItems(cards);
+})
+.catch((err) => {
+  console.log(err);
+});
