@@ -10,12 +10,15 @@ export default class PopupWithForm extends Popup {
     this._inputList = this._form.querySelectorAll(".popup__input");
     this._submitButton = this._form.querySelector('.popup__submit-button');
     this._submitButtonText = this._submitButton.textContent;
+    // this._formInputsValues = {};
+    // объект с данными всех инпутов
+    this._inputsValues = {};
   }
 
   // собирает данные всех полей формы в объект
   _getInputValues() {
     // объект с данными всех инпутов
-    this._inputsValues = {};
+    // this._inputsValues = {};
     // значения каждого инпута записываю в объект
     this._inputList.forEach((input) => {
       this._inputsValues[input.name] = input.value;

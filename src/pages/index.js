@@ -119,6 +119,7 @@ const handleClickButtonEditProfile = () => {
 
 // ----------\/ карточки мест \/------------ //
 
+
 // идентификатор запрашиваемый с сервера
 let userId;
 
@@ -128,7 +129,7 @@ const initialListCards = new Section((cardItem) => {
   const idLikeCompare = cardItem.likes.some((like) => {
     like._id === userId
   });
-  initialListCards.addItem((
+  initialListCards.addItem(
     createCard(
       cardItem.name,
       cardItem.link,
@@ -139,7 +140,7 @@ const initialListCards = new Section((cardItem) => {
       handleLikeElement,
       idLikeCompare
     )
-  ))
+  );
 }, cardsContainer);
 
 // создание карточки
@@ -156,7 +157,7 @@ const createCard = (
     const card = new Card(
       name,
       link,
-      elementTemplate,
+      ".card-template",
       handleCardClick,
       likes,
       id,
@@ -168,12 +169,14 @@ const createCard = (
 }
 
 
+
+
 // обработчик клика по кнопке удаления карточки
 const handleDeleteCard = (id, card) => {
   popupDelete.open(id, card);
 }
 
-/*
+/*//////////////////////////////////////
 // создание карточки
 const createCard = (cardItem) => {
   const card = new Card(
@@ -197,6 +200,8 @@ const createCard = (cardItem) => {
     // initialList.addItem(cardElement);
 };
 
+*/
+/*
 // лайк карточки
 const likeCard = (card) => {
   if (!card.isLiked) {
@@ -270,18 +275,25 @@ const handleSubmitFormNewCard = (cardItem) => {
 const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
 popupNewCard.setEventListeners();
 
+
+
+*/
+
 // действия при нажатии кнопки добавления карточки
 const handleClickButtonAddCard = () => {
   validationFormAddCard.resetForm();
   popupNewCard.open();
 };
 
-*/
+// экземпляр попапа с формой для добавления новой карточки
+// передаём (селектор попапа, обработчик сабмита формы)
+const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
+popupNewCard.setEventListeners();
 
 // обработка сабмита в форме добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
   popupNewCard.waitingLoading(true, 'Сохранение...');
-  api.createCard(cardItem)
+  api.createCard(cardItem.name, cardItem.link)
   .then((data) => {
     // console.log(data);
     initialListCards.addItem(createCard(
@@ -293,7 +305,7 @@ const handleSubmitFormNewCard = (cardItem) => {
       true,
       handleLikeElement,
       false
-    ))
+    ));
     // createCard(data);
     // api.getInitialCards();
     popupNewCard.close();
@@ -309,10 +321,6 @@ const handleSubmitFormNewCard = (cardItem) => {
   // popupNewCard.close();
 };
 
-// экземпляр попапа с формой для добавления новой карточки
-// передаём (селектор попапа, обработчик сабмита формы)
-const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
-popupNewCard.setEventListeners();
 
 // обработчик лайка карточки
 const handleLikeElement = (id, likeToggle, isLiked) => {
@@ -331,6 +339,30 @@ const handleLikeElement = (id, likeToggle, isLiked) => {
   }
 };
 
+// лайк карточки
+// const handleLikeElement = (card) => {
+//   if (!card.isLiked) {
+//     api.addLike(card.id)
+//     .then((data)=>{
+//       card.setLikes(data.likes);
+//       card.addLike();
+//       card.renderLikeCount();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+//   } else {
+//     api.deleteLike(card.id)
+//     .then((data)=>{
+//       card.setLikes(data.likes);
+//       card.removeLike();
+//       card.renderLikeCount();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+//   }
+// }
 // ----------\/ удаление карточки \/------------ //
 
 const handleSubmitDeleteCard = (id, card) => {
@@ -366,8 +398,8 @@ const handleSubmitDeleteCard = (id, card) => {
 const popupImage = new PopupWithImage(popupOpenImage);
 popupImage.setEventListeners();
 
-const handleCardClick = (card) => {
-  popupImage.open(card);
+const handleCardClick = (name, link) => {
+  popupImage.open(name, link);
 };
 
 // ----------\/ валидация \/------------ //
@@ -402,7 +434,7 @@ buttonEditAvatar.addEventListener("click", handleClickButtonEditAvatar);
 buttonEditProfile.addEventListener("click", handleClickButtonEditProfile);
 
 // слушатель кнопки добавления карточки
-// buttonAddCard.addEventListener("click", handleClickButtonAddCard);
+buttonAddCard.addEventListener("click", handleClickButtonAddCard);
 
 
 Promise.all([
