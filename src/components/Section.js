@@ -16,12 +16,12 @@ export default class Section {
   }
 
   // принимает DOM-элемент и добавляет его в контейнер.
-  addItem(element) {
-    this._container.append(element);
+  addItem(domElement) {
+    this._container.append(domElement);
   }
 
   // удаление элемента
-  deleteItem(element) {
-    element.remove();
+  deleteItem(domElement) {
+    domElement.remove();
   }
 }

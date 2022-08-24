@@ -1,7 +1,14 @@
 // класс, который создаёт карточку с текстом и ссылкой на изображение
 export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента;
-  constructor(cardData, cardSelector, handleCardClick, handleDeleteCardClick, userId, handleLikeCardClick) {
+  constructor(
+    cardData,
+    cardSelector,
+    handleCardClick,
+    handleDeleteCardClick,
+    userId,
+    handleLikeCardClick
+    ) {
     this._name = cardData.name;
     this._link = cardData.link;
     this.likes = cardData.likes;
