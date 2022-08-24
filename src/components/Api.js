@@ -23,12 +23,15 @@ export default class Api {
     }).then(this._handleResponse);
   }
 
-  // отправить отредактированные данные профиля на сервер
-  setProfileInfo(data) {
+  // сохранить отредактированные данные профиля на сервере
+  updateProfileInfo(name, about) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        name: name,
+        about: about
+      })
     }).then(this._handleResponse);
   }
 

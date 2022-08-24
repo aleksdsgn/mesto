@@ -1,7 +1,7 @@
 import Popup from "./Popup.js";
 
 // класс для попапа с заппросом подтверждения
-export default class PopupWithConfirm extends Popup {
+export default class PopupWithConfirmation extends Popup {
   constructor (popupSelector, handleSubmit) {
     super(popupSelector);
     this._handleSubmit = handleSubmit;
@@ -20,7 +20,7 @@ export default class PopupWithConfirm extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
-    this._form.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handleSubmit(this._id, this._card);
     });

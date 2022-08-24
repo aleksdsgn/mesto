@@ -43,10 +43,12 @@ export default class Card {
     this._buttonDelete = this._card.querySelector(".card__button-delete")
     this._likesCounter = this._card.querySelector(".card__likes-counter");
 
+    // проверка: ставил ли пользователь лайк, если да, то икока активная
     if (likeCompare) {
       this._buttonLike.classList.add('card__button-like_active');
     }
 
+    // проверка: моя ли это карточка, есали нет, то иконку удаления убрать
     if (!idCardCompare) {
       this._buttonDelete.remove();
       // this._deleteIsValid = false;
@@ -95,8 +97,8 @@ export default class Card {
 
 
   // удалить карточку
-  deleteCard() {
-    this._handleDeleteCard(this._id, this._card);
+  _deleteCard() {
+    this._handleDeleteCardClick(this._id, this._card);
     // this._card.remove();
     // очистка ссылки на DOM-элемент
     // this._card = null;

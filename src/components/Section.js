@@ -15,9 +15,14 @@ export default class Section {
     });
   }
 
-  // принимает DOM-элемент и добавляет его в контейнер.
-  addItem(domElement) {
+  // принимает DOM-элемент и добавляет его в конец контейнера
+  addItemDown(domElement) {
     this._container.append(domElement);
+  }
+
+  // принимает DOM-элемент и добавляет его в начало контейнера
+  addItemTop(domElement) {
+    this._container.prepend(domElement);
   }
 
   // удаление элемента

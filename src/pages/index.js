@@ -5,7 +5,7 @@ import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithConfirm from "../components/PopupWithConfirm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import selectorsForm from "../utils/selectorsForm.js";
@@ -82,7 +82,7 @@ const handleClickButtonEditAvatar = () => {
 // обработка сабмита в форме профиля
 const handleSubmitFormProfile = (userInfoData) => {
   popupProfile.waitingLoading(true, 'Сохранение...');
-  api.setProfileInfo(userInfoData)
+  api.updateProfileInfo(userInfoData.name, userInfoData.about)
   .then((data) => {
     // console.log(data);
     newUserInfo.setUserInfo(data);
@@ -126,10 +126,8 @@ let userId;
 // загрузка карточек с сервера
 const initialListCards = new Section((cardItem) => {
   const idCardCompare = userId === cardItem.owner._id;
-  const idLikeCompare = cardItem.likes.some((like) => {
-    like._id === userId
-  });
-  initialListCards.addItem(
+  const idLikeCompare = cardItem.likes.some((like) => like._id === userId);
+  initialListCards.addItemDown(
     createCard(
       cardItem.name,
       cardItem.link,
@@ -285,18 +283,16 @@ const handleClickButtonAddCard = () => {
   popupNewCard.open();
 };
 
-// экземпляр попапа с формой для добавления новой карточки
-// передаём (селектор попапа, обработчик сабмита формы)
-const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
-popupNewCard.setEventListeners();
+
 
 // обработка сабмита в форме добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
+  console.log('Test');
   popupNewCard.waitingLoading(true, 'Сохранение...');
   api.createCard(cardItem.name, cardItem.link)
   .then((data) => {
     // console.log(data);
-    initialListCards.addItem(createCard(
+    initialListCards.addItemTop(createCard(
       data.name,
       data.link,
       [],
@@ -321,6 +317,10 @@ const handleSubmitFormNewCard = (cardItem) => {
   // popupNewCard.close();
 };
 
+// экземпляр попапа с формой для добавления новой карточки
+// передаём (селектор попапа, обработчик сабмита формы)
+const popupNewCard = new PopupWithForm(popupAddCard, handleSubmitFormNewCard);
+popupNewCard.setEventListeners();
 
 // обработчик лайка карточки
 const handleLikeElement = (id, likeToggle, isLiked) => {
@@ -366,7 +366,6 @@ const handleLikeElement = (id, likeToggle, isLiked) => {
 // ----------\/ удаление карточки \/------------ //
 
 const handleSubmitDeleteCard = (id, card) => {
-  // popupDelete.waitingLoading('Удаление...');
   // const card = popupDelete.getDataCard();
   api.deleteCardById(id)
   .then(() => {
@@ -386,11 +385,11 @@ const handleSubmitDeleteCard = (id, card) => {
 //   popupDelete.open(id, card);
 // }
 
-// const popupDelete = new PopupWithConfirm(
-//   popupDeleteCard,
-//   handleSubmitDeleteCard
-//   );
-// popupDelete.setEventListeners();
+const popupDelete = new PopupWithConfirmation(
+  popupDeleteCard,
+  handleSubmitDeleteCard
+  );
+popupDelete.setEventListeners();
 
 
 // ----------\/ открытая карточка \/------------ //
