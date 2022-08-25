@@ -1,7 +1,3 @@
-// import apiConfig from "../utils/apiConfig.js";
-
-import { data } from "autoprefixer";
-
 export default class Api {
   constructor(apiConfig) {
     this._url = apiConfig.baseUrl;
@@ -16,71 +12,74 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  // получить данные профиля с сервера
+  // получение данных профиля с сервера
   getProfileInfo() {
     return fetch(`${this._url}/users/me`, {
-      headers: this._headers
+      headers: this._headers,
     }).then(this._handleResponse);
   }
 
-  // сохранить отредактированные данные профиля на сервере
+  // сохранение отредактированных данных профиля на сервере
   updateProfileInfo(name, about) {
     return fetch(`${this._url}/users/me`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        about: about
-      })
+        about: about,
+      }),
     }).then(this._handleResponse);
   }
 
-  // получить карточки с сервера
+  // получение карточек с сервера
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
-      headers: this._headers
+      headers: this._headers,
     }).then(this._handleResponse);
   }
 
   // создание и загрузка новой карточки на сервер
   createCard(name, link) {
     return fetch(`${this._url}/cards`, {
-      method: 'POST',
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        link: link
-      })
+        link: link,
+      }),
     }).then(this._handleResponse);
   }
 
   // удаление карточки с сервера
   deleteCardById(id) {
     return fetch(`${this._url}/cards/${id}`, {
-      method: 'DELETE',
-      headers: this._headers
+      method: "DELETE",
+      headers: this._headers,
     }).then(this._handleResponse);
   }
 
+  // проставление лайка
   addLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers
+      method: "PUT",
+      headers: this._headers,
     }).then(this._handleResponse);
   }
 
+  // удаление лайка
   deleteLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
+      method: "DELETE",
+      headers: this._headers,
     }).then(this._handleResponse);
   }
 
+  // изменение аватара
   editAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar: data })
+      body: JSON.stringify({ avatar: data }),
     }).then(this._handleResponse);
   }
 }

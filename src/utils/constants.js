@@ -11,7 +11,6 @@ export const popupEditAvatar = ".popup_type_edit-avatar";
 // форма изменения аватарки
 export const formEditAvatar = document.forms.avatar;
 
-
 // ----------\/ редактирование профиля \/------------ //
 
 // кнопка открытия попапа для редактирования профиля
@@ -29,13 +28,12 @@ export const formEditProfile = document.forms.profile;
 export const profileData = {
   nameSelector: ".profile__title",
   aboutSelector: ".profile__subtitle",
-  avatarSelector: ".profile__avatar"
+  avatarSelector: ".profile__avatar",
 };
 
 // селекторы инпутов в форме редактирования профиля
 export const nameInput = document.querySelector(".popup__input_type_name");
 export const aboutInput = document.querySelector(".popup__input_type_about");
-
 
 // ----------\/ добавление новой карточки \/------------ //
 
@@ -53,12 +51,10 @@ export const formAddCard = document.forms.place;
 // контейнер для шаблонов карточек
 export const cardsContainer = ".places__container";
 
-
 // ----------\/ открытая карточка \/------------ //
 
 // попап увеличенной картинки
 export const popupOpenImage = ".popup_type_img";
-
 
 // ----------\/ прочее \/------------ //
 

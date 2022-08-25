@@ -13,7 +13,7 @@ export default class UserInfo {
       name: this._userName.textContent,
       about: this._userAbout.textContent,
       id: this.id,
-      avatar: this._avatar
+      avatar: this._avatar,
     };
     return userInfoData;
   }
@@ -26,13 +26,12 @@ export default class UserInfo {
     this._avatar = avatar;
   }
 
-  renderUserInfo ()
-  {
+  renderUserInfo() {
     this._userName.textContent = this._name;
     this._userAbout.textContent = this._about;
   }
 
-  renderUserAvatar () {
+  renderUserAvatar() {
     this._userAvatar.src = this._avatar;
   }
 }
