@@ -1,10 +1,10 @@
 .profile {
   max-width: 880px;
-  margin: 0 auto;
-  padding: 40px 27px 51px;
   display: grid;
-  column-gap: 30px;
+  padding: 40px 27px 51px;
+  margin: 0 auto;
   align-items: center;
+  column-gap: 30px;
   grid-template-columns: 120px 336px auto;
 }
 
