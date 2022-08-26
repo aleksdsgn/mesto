@@ -167,7 +167,6 @@ const handleClickButtonAddCard = () => {
 
 // обработка сабмита в форме добавление новой карточки
 const handleSubmitFormNewCard = (cardItem) => {
-  console.log("Test");
   popupNewCard.waitingLoading(true, "Сохранение...");
   api
     .createCard(cardItem.name, cardItem.link)
@@ -221,6 +220,7 @@ const handleLikeElement = (id, likeToggle, isLiked) => {
 // ----------\/ удаление карточки \/------------ //
 
 const handleSubmitDeleteCard = (id, card) => {
+  // debugger;
   api
     .deleteCardById(id)
     .then(() => {
