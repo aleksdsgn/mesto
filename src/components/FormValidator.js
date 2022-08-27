@@ -105,7 +105,7 @@ export default class FormValidator {
   }
 
   // сброс введеных данных после закрытия попапа
-  resetForm() {
+  resetValidation() {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });

@@ -43,7 +43,6 @@ const handleSubmitFormAvatar = (userInfoData) => {
     .editAvatar(userInfoData.link)
     .then((data) => {
       newUserInfo.setUserInfo(data);
-      newUserInfo.renderUserAvatar();
       popupAvatar.close();
     })
     .catch((err) => {
@@ -61,7 +60,7 @@ popupAvatar.setEventListeners();
 
 // действия при нажатии кнопки редактирования аватарки
 const handleClickButtonEditAvatar = () => {
-  validationFormAvatar.resetForm();
+  formValidators['avatar'].resetValidation();
   popupAvatar.open();
 };
 
@@ -75,7 +74,6 @@ const handleSubmitFormProfile = (userInfoData) => {
     .then((data) => {
       // console.log(data);
       newUserInfo.setUserInfo(data);
-      newUserInfo.renderUserInfo();
       popupProfile.close();
     })
     .catch((err) => {
@@ -97,10 +95,9 @@ popupProfile.setEventListeners();
 // действия при нажатии кнопки редактирования профиля
 const handleClickButtonEditProfile = () => {
   // очистить форму
-  validationFormEditProfile.resetForm();
+  formValidators['profile'].resetValidation();
   // подставить данные в поля ввода
-  nameInput.value = newUserInfo.getUserInfo().name;
-  aboutInput.value = newUserInfo.getUserInfo().about;
+  popupProfile.setInputValues(newUserInfo.getUserInfo());
   // и только потом открыть готовый попап
   popupProfile.open();
 };
@@ -161,7 +158,7 @@ const handleDeleteCard = (id, card) => {
 
 // действия при нажатии кнопки добавления карточки
 const handleClickButtonAddCard = () => {
-  validationFormAddCard.resetForm();
+  formValidators['place'].resetValidation();
   popupNewCard.open();
 };
 
@@ -249,20 +246,22 @@ const handleCardClick = (name, link) => {
 
 // ----------\/ валидация \/------------ //
 
-// форма изменения аватарки
-const validationFormAvatar = new FormValidator(selectorsForm, formEditAvatar);
-validationFormAvatar.enableValidation();
+const formValidators = {}
 
-// форма редактирования профиля
-const validationFormEditProfile = new FormValidator(
-  selectorsForm,
-  formEditProfile
-);
-validationFormEditProfile.enableValidation();
+// включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    // получаем данные формы из атрибута name
+    const formName = formElement.getAttribute('name')
+    // в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
 
-// форма добавления карточки
-const validationFormAddCard = new FormValidator(selectorsForm, formAddCard);
-validationFormAddCard.enableValidation();
+enableValidation(selectorsForm);
 
 // ----------\/ слушатели \/------------ //
 
@@ -285,8 +284,6 @@ Promise.all([
 ])
   .then(([userInfo, cards]) => {
     newUserInfo.setUserInfo(userInfo);
-    newUserInfo.renderUserInfo();
-    newUserInfo.renderUserAvatar();
     userId = userInfo._id;
 
     cardsList.renderItems(cards);

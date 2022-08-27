@@ -68,7 +68,7 @@ export default class Card {
   _deleteCard() {
     this._handleDeleteCardClick(this._id, this._card);
     // очистка ссылки на DOM-элемент
-    this._card = null;
+    // this._card = null;
   }
 
   //открытие карточки

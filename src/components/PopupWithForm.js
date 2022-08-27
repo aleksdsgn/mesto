@@ -23,6 +23,13 @@ export default class PopupWithForm extends Popup {
     return this._inputsValues;
   }
 
+  // подставляет данные в поля ввода
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    })
+  }
+
   // добавляет обработчик клика по иконке закрытия,
   // и добавляет обработчик сабмита формы.
   setEventListeners() {
